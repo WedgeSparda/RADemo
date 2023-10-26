@@ -8,17 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		96F510012AE973F200FC0AC1 /* RADemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510002AE973F200FC0AC1 /* RADemoApp.swift */; };
-		96F510032AE973F200FC0AC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510022AE973F200FC0AC1 /* ContentView.swift */; };
 		96F510052AE973F300FC0AC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F510042AE973F300FC0AC1 /* Assets.xcassets */; };
 		96F510082AE973F300FC0AC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F510072AE973F300FC0AC1 /* Preview Assets.xcassets */; };
+		96F510102AE9746400FC0AC1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */; };
+		96F510132AE9749300FC0AC1 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510122AE9749300FC0AC1 /* AppFeature.swift */; };
+		96F510162AE976E600FC0AC1 /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510152AE976E600FC0AC1 /* SplashFeature.swift */; };
+		96F510192AE97DDB00FC0AC1 /* MainFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510182AE97DDB00FC0AC1 /* MainFeature.swift */; };
+		96F5101D2AEA5AC900FC0AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5101C2AEA5AC900FC0AC1 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		96F50FFD2AE973F200FC0AC1 /* RADemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RADemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F510002AE973F200FC0AC1 /* RADemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RADemoApp.swift; sourceTree = "<group>"; };
-		96F510022AE973F200FC0AC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		96F510042AE973F300FC0AC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96F510072AE973F300FC0AC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		96F510122AE9749300FC0AC1 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
+		96F510152AE976E600FC0AC1 /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
+		96F510182AE97DDB00FC0AC1 /* MainFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeature.swift; sourceTree = "<group>"; };
+		96F5101C2AEA5AC900FC0AC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96F510102AE9746400FC0AC1 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,7 +43,9 @@
 		96F50FF42AE973F200FC0AC1 = {
 			isa = PBXGroup;
 			children = (
-				96F50FFF2AE973F200FC0AC1 /* RADemo */,
+				96F5101B2AEA35A300FC0AC1 /* Tests */,
+				96F5101A2AEA352700FC0AC1 /* Packages */,
+				96F50FFF2AE973F200FC0AC1 /* Source */,
 				96F50FFE2AE973F200FC0AC1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,15 +58,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96F50FFF2AE973F200FC0AC1 /* RADemo */ = {
+		96F50FFF2AE973F200FC0AC1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				96F510172AE97DCE00FC0AC1 /* Main */,
+				96F510142AE976DA00FC0AC1 /* Splash */,
+				96F510112AE9747300FC0AC1 /* App */,
 				96F510002AE973F200FC0AC1 /* RADemoApp.swift */,
-				96F510022AE973F200FC0AC1 /* ContentView.swift */,
 				96F510042AE973F300FC0AC1 /* Assets.xcassets */,
 				96F510062AE973F300FC0AC1 /* Preview Content */,
 			);
-			path = RADemo;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		96F510062AE973F300FC0AC1 /* Preview Content */ = {
@@ -65,6 +77,45 @@
 				96F510072AE973F300FC0AC1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		96F510112AE9747300FC0AC1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				96F510122AE9749300FC0AC1 /* AppFeature.swift */,
+				96F5101C2AEA5AC900FC0AC1 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		96F510142AE976DA00FC0AC1 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				96F510152AE976E600FC0AC1 /* SplashFeature.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		96F510172AE97DCE00FC0AC1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				96F510182AE97DDB00FC0AC1 /* MainFeature.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		96F5101A2AEA352700FC0AC1 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		96F5101B2AEA35A300FC0AC1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +134,9 @@
 			dependencies = (
 			);
 			name = RADemo;
+			packageProductDependencies = (
+				96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */,
+			);
 			productName = RADemo;
 			productReference = 96F50FFD2AE973F200FC0AC1 /* RADemo.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +165,9 @@
 				Base,
 			);
 			mainGroup = 96F50FF42AE973F200FC0AC1;
+			packageReferences = (
+				96F5100E2AE9746400FC0AC1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 96F50FFE2AE973F200FC0AC1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,7 +194,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F510032AE973F200FC0AC1 /* ContentView.swift in Sources */,
+				96F510162AE976E600FC0AC1 /* SplashFeature.swift in Sources */,
+				96F510192AE97DDB00FC0AC1 /* MainFeature.swift in Sources */,
+				96F510132AE9749300FC0AC1 /* AppFeature.swift in Sources */,
+				96F5101D2AEA5AC900FC0AC1 /* AppDelegate.swift in Sources */,
 				96F510012AE973F200FC0AC1 /* RADemoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,7 +331,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RADemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Source/Preview Content\"";
 				DEVELOPMENT_TEAM = WTDP655XT9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -300,7 +360,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RADemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Source/Preview Content\"";
 				DEVELOPMENT_TEAM = WTDP655XT9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -344,6 +404,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		96F5100E2AE9746400FC0AC1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 96F5100E2AE9746400FC0AC1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 96F50FF52AE973F200FC0AC1 /* Project object */;
 }
