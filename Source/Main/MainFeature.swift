@@ -4,11 +4,15 @@ import ComposableArchitecture
 struct MainFeature: Reducer {
     
     struct State: Equatable {
-        
+        var home: HomeFeature.State
+        var search: SearchFeature.State
     }
     
     enum Action {
         case onAppear
+        
+        case home(HomeFeature.Action)
+        case search(SearchFeature.Action)
     }
     
     var body: some ReducerOf<Self> {
@@ -16,6 +20,10 @@ struct MainFeature: Reducer {
             switch action {
             case .onAppear:
                 print("MAIN ON APPEAR")
+                return .none
+            case .home:
+                return .none
+            case .search:
                 return .none
             }
         }
@@ -27,11 +35,40 @@ struct MainView: View {
     let store: StoreOf<MainFeature>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            Text("MAIN")
-                .onAppear {
-                    viewStore.send(.onAppear)
-                }
+        TabView {
+            HomeView(store: store.scope(
+                state: \.home,
+                action: { .home($0) }
+            ))
+            .tabItem {
+                Text("Home")
+                Image(systemName: "house.fill")
+            }
+            
+            SearchView(store: store.scope(
+                state: \.search,
+                action: { .search($0) }
+            ))
+            .tabItem {
+                Text("Search")
+                Image(systemName: "magnifyingglass")
+            }
+        }
+        .onAppear {
+            store.send(.onAppear)
         }
     }
+
+}
+
+#Preview {
+    MainView(
+        store: .init(
+            initialState: .init(
+                home: .init(),
+                search: .init()
+            ),
+            reducer: { MainFeature() }
+        )
+    )
 }

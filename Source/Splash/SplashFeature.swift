@@ -37,12 +37,10 @@ struct SplashView: View {
     let store: StoreOf<SplashFeature>
     
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            Text("SPLASH")
-                .onAppear {
-                    viewStore.send(.onAppear)
-                }
-        }
+        Text("SPLASH")
+            .onAppear {
+                store.send(.onAppear)
+            }
     }
 }
 
