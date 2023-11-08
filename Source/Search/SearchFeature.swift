@@ -9,6 +9,7 @@ struct SearchFeature: Reducer {
     
     enum Action: BindableAction {
         case onAppear
+        case searchSuggestionTapped(String)
         case binding(BindingAction<State>)
     }
     
@@ -18,6 +19,10 @@ struct SearchFeature: Reducer {
             case .onAppear:
                 print("SEARCH ON APPEAR")
                 return .none
+            case .searchSuggestionTapped(let suggestion):
+                return Effect.send(
+                    .binding(.set(\.$searchText, suggestion))
+                )
             case .binding(\.$searchText):
                 print("SEARCH TEXT CHANGED", state.searchText)
                 return .none
@@ -45,6 +50,16 @@ struct SearchView: View {
                 }
             }
             .searchable(text: viewStore.$searchText, prompt: nil)
+            .searchSuggestions {
+                VStack {
+                    Text("OLA")
+                        .onTapGesture {
+                            viewStore.send(.searchSuggestionTapped("OLA KE ASE"))
+                        }
+                    Text("OLA")
+                    Text("OLA")
+                }
+            }
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
