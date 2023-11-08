@@ -16,6 +16,14 @@ struct MainFeature: Reducer {
     }
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.home, action: /MainFeature.Action.home) {
+            HomeFeature()
+        }
+        
+        Scope(state: \.search, action: /MainFeature.Action.search) {
+            SearchFeature()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -45,10 +53,12 @@ struct MainView: View {
                 Image(systemName: "house.fill")
             }
             
-            SearchView(store: store.scope(
-                state: \.search,
-                action: { .search($0) }
-            ))
+            NavigationStack {
+                SearchView(store: store.scope(
+                    state: \.search,
+                    action: { .search($0) }
+                ))
+            }
             .tabItem {
                 Text("Search")
                 Image(systemName: "magnifyingglass")

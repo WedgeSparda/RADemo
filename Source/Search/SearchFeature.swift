@@ -4,11 +4,12 @@ import ComposableArchitecture
 struct SearchFeature: Reducer {
     
     struct State: Equatable {
-        
+        @BindingState var searchText: String = ""
     }
     
-    enum Action {
+    enum Action: BindableAction {
         case onAppear
+        case binding(BindingAction<State>)
     }
     
     var body: some ReducerOf<Self> {
@@ -17,8 +18,15 @@ struct SearchFeature: Reducer {
             case .onAppear:
                 print("SEARCH ON APPEAR")
                 return .none
+            case .binding(\.$searchText):
+                print("SEARCH TEXT CHANGED", state.searchText)
+                return .none
+            case .binding:
+                return .none
             }
         }
+        
+        BindingReducer()
     }
 }
 
@@ -27,19 +35,34 @@ struct SearchView: View {
     let store: StoreOf<SearchFeature>
     
     var body: some View {
-        Text("SEARCH")
-            .onAppear {
-                store.send(.onAppear)
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            ScrollView {
+                VStack {
+                    Text("Searching for: \(viewStore.searchText)")
+                        .lineLimit(1)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                }
             }
+            .searchable(text: viewStore.$searchText, prompt: nil)
+            .navigationTitle("Search")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .onAppear {
+                viewStore.send(.onAppear)
+            }
+        }
     }
 }
 
 
 #Preview {
-    SearchView(
-        store: .init(
-            initialState: .init(),
-            reducer: { SearchFeature() }
+    NavigationStack {
+        SearchView(
+            store: .init(
+                initialState: .init(),
+                reducer: { SearchFeature() }
+            )
         )
-    )
+    }
 }
