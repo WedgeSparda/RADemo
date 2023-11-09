@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		960070472AED0CF600AD47B7 /* RAKit in Frameworks */ = {isa = PBXBuildFile; productRef = 960070462AED0CF600AD47B7 /* RAKit */; };
 		969BDF522AED0FE3006C93E2 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BDF512AED0FE3006C93E2 /* HomeFeature.swift */; };
 		969BDF542AED1132006C93E2 /* SearchFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BDF532AED1132006C93E2 /* SearchFeature.swift */; };
 		96F510012AE973F200FC0AC1 /* RADemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510002AE973F200FC0AC1 /* RADemoApp.swift */; };
@@ -21,9 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		969BDF4E2AED0D29006C93E2 /* RAKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RAKit; path = Packages/RAKit; sourceTree = "<group>"; };
 		969BDF512AED0FE3006C93E2 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
 		969BDF532AED1132006C93E2 /* SearchFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeature.swift; sourceTree = "<group>"; };
+		96F22C3D2AFCBCD700F697AF /* RAKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RAKit; sourceTree = "<group>"; };
 		96F50FFD2AE973F200FC0AC1 /* RADemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RADemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96F510002AE973F200FC0AC1 /* RADemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RADemoApp.swift; sourceTree = "<group>"; };
 		96F510042AE973F300FC0AC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -39,7 +38,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				960070472AED0CF600AD47B7 /* RAKit in Frameworks */,
 				96F510102AE9746400FC0AC1 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,9 +64,8 @@
 		96F50FF42AE973F200FC0AC1 = {
 			isa = PBXGroup;
 			children = (
-				969BDF4E2AED0D29006C93E2 /* RAKit */,
+				96F22C3D2AFCBCD700F697AF /* RAKit */,
 				96F5101B2AEA35A300FC0AC1 /* Tests */,
-				96F5101A2AEA352700FC0AC1 /* Packages */,
 				96F50FFF2AE973F200FC0AC1 /* Source */,
 				96F50FFE2AE973F200FC0AC1 /* Products */,
 			);
@@ -130,13 +127,6 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		96F5101A2AEA352700FC0AC1 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Packages;
-			sourceTree = "<group>";
-		};
 		96F5101B2AEA35A300FC0AC1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +152,6 @@
 			name = RADemo;
 			packageProductDependencies = (
 				96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */,
-				960070462AED0CF600AD47B7 /* RAKit */,
 			);
 			productName = RADemo;
 			productReference = 96F50FFD2AE973F200FC0AC1 /* RADemo.app */;
@@ -446,10 +435,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		960070462AED0CF600AD47B7 /* RAKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RAKit;
-		};
 		96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 96F5100E2AE9746400FC0AC1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
