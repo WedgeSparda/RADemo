@@ -1,21 +1,33 @@
 import SwiftUI
 import ComposableArchitecture
+import SearchFeature
+import HomeFeature
 
-struct MainFeature: Reducer {
+public struct MainFeature: Reducer {
     
-    struct State: Equatable {
+    public init() {}
+    
+    public struct State: Equatable {
         var home: HomeFeature.State
         var search: SearchFeature.State
+        
+        public init(
+            home: HomeFeature.State, 
+            search: SearchFeature.State
+        ) {
+            self.home = home
+            self.search = search
+        }
     }
     
-    enum Action {
+    public enum Action {
         case onAppear
         
         case home(HomeFeature.Action)
         case search(SearchFeature.Action)
     }
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Scope(state: \.home, action: /MainFeature.Action.home) {
             HomeFeature()
         }
@@ -38,11 +50,15 @@ struct MainFeature: Reducer {
     }
 }
 
-struct MainView: View {
+public struct MainView: View {
     
     let store: StoreOf<MainFeature>
     
-    var body: some View {
+    public init(store: StoreOf<MainFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         TabView {
             HomeView(store: store.scope(
                 state: \.home,

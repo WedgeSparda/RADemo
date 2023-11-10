@@ -1,20 +1,26 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SplashFeature: Reducer {
+public struct SplashFeature: Reducer {
     
     @Dependency(\.continuousClock) var clock
     
-    struct State: Equatable {
+    public init() {}
+    
+    public struct State: Equatable {
         var appReady = false
+        
+        public init(appReady: Bool = false) {
+            self.appReady = appReady
+        }
     }
     
-    enum Action {
+    public enum Action {
         case onAppear
         case onAppReady
     }
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -32,11 +38,15 @@ struct SplashFeature: Reducer {
     }
 }
 
-struct SplashView: View {
+public struct SplashView: View {
     
     let store: StoreOf<SplashFeature>
     
-    var body: some View {
+    public init(store: StoreOf<SplashFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         Text("SPLASH")
             .onAppear {
                 store.send(.onAppear)
@@ -45,5 +55,10 @@ struct SplashView: View {
 }
 
 #Preview {
-    SplashView(store: .init(initialState: .init(), reducer: { SplashFeature() }))
+    SplashView(
+        store: .init(
+            initialState: .init(),
+            reducer: { SplashFeature() }
+        )
+    )
 }

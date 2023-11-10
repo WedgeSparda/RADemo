@@ -1,17 +1,19 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct HomeFeature: Reducer {
+public struct HomeFeature: Reducer {
     
-    struct State: Equatable {
-        
+    public init() {}
+    
+    public struct State: Equatable {
+        public init() {}
     }
     
-    enum Action {
+    public enum Action {
         case onAppear
     }
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -22,10 +24,14 @@ struct HomeFeature: Reducer {
     }
 }
 
-struct HomeView: View {
+public struct HomeView: View {
     let store: StoreOf<HomeFeature>
     
-    var body: some View {
+    public  init(store: StoreOf<HomeFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         Text("HOME")
             .onAppear {
                 store.send(.onAppear)

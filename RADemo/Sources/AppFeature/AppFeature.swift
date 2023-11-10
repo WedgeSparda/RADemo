@@ -1,20 +1,25 @@
 import SwiftUI
 import ComposableArchitecture
+import SplashFeature
+import MainFeature
 
-struct AppFeature: Reducer {
-    enum State: Equatable {
+public struct AppFeature: Reducer {
+    
+    public init() {}
+    
+    public enum State: Equatable {
         case splash(SplashFeature.State)
         case main(MainFeature.State)
     }
     
-    enum Action {
+    public enum Action {
         case onAppear
         
         case splash(SplashFeature.Action)
         case main(MainFeature.Action)
     }
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -46,10 +51,14 @@ struct AppFeature: Reducer {
     }
 }
 
-struct AppView: View {
+public struct AppView: View {
     let store: StoreOf<AppFeature>
     
-    var body: some View {
+    public init(store: StoreOf<AppFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         SwitchStore(store) { state in
             switch state {
             case .splash:

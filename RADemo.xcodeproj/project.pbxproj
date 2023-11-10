@@ -7,30 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		969BDF522AED0FE3006C93E2 /* HomeFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BDF512AED0FE3006C93E2 /* HomeFeature.swift */; };
-		969BDF542AED1132006C93E2 /* SearchFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BDF532AED1132006C93E2 /* SearchFeature.swift */; };
-		96F510012AE973F200FC0AC1 /* RADemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510002AE973F200FC0AC1 /* RADemoApp.swift */; };
+		969D0CBA2AFE69B200CA679D /* SearchFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 969D0CB92AFE69B200CA679D /* SearchFeature */; };
+		969D0CBC2AFE6BF600CA679D /* HomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 969D0CBB2AFE6BF600CA679D /* HomeFeature */; };
+		969D0CBE2AFE6CC500CA679D /* SplashFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 969D0CBD2AFE6CC500CA679D /* SplashFeature */; };
+		969D0CC02AFE6E7200CA679D /* MainFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 969D0CBF2AFE6E7200CA679D /* MainFeature */; };
+		969D0CC22AFE6F7500CA679D /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 969D0CC12AFE6F7500CA679D /* AppFeature */; };
 		96F510052AE973F300FC0AC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F510042AE973F300FC0AC1 /* Assets.xcassets */; };
-		96F510082AE973F300FC0AC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96F510072AE973F300FC0AC1 /* Preview Assets.xcassets */; };
-		96F510102AE9746400FC0AC1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */; };
-		96F510132AE9749300FC0AC1 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510122AE9749300FC0AC1 /* AppFeature.swift */; };
-		96F510162AE976E600FC0AC1 /* SplashFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510152AE976E600FC0AC1 /* SplashFeature.swift */; };
-		96F510192AE97DDB00FC0AC1 /* MainFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F510182AE97DDB00FC0AC1 /* MainFeature.swift */; };
-		96F5101D2AEA5AC900FC0AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5101C2AEA5AC900FC0AC1 /* AppDelegate.swift */; };
+		96F5101D2AEA5AC900FC0AC1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5101C2AEA5AC900FC0AC1 /* App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		969BDF512AED0FE3006C93E2 /* HomeFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeature.swift; sourceTree = "<group>"; };
-		969BDF532AED1132006C93E2 /* SearchFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeature.swift; sourceTree = "<group>"; };
-		96F22C3D2AFCBCD700F697AF /* RAKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RAKit; sourceTree = "<group>"; };
+		969D0CB72AFE698500CA679D /* RADemo */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RADemo; sourceTree = "<group>"; };
 		96F50FFD2AE973F200FC0AC1 /* RADemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RADemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		96F510002AE973F200FC0AC1 /* RADemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RADemoApp.swift; sourceTree = "<group>"; };
 		96F510042AE973F300FC0AC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		96F510072AE973F300FC0AC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		96F510122AE9749300FC0AC1 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
-		96F510152AE976E600FC0AC1 /* SplashFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashFeature.swift; sourceTree = "<group>"; };
-		96F510182AE97DDB00FC0AC1 /* MainFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeature.swift; sourceTree = "<group>"; };
-		96F5101C2AEA5AC900FC0AC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		96F5101C2AEA5AC900FC0AC1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,36 +28,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F510102AE9746400FC0AC1 /* ComposableArchitecture in Frameworks */,
+				969D0CBE2AFE6CC500CA679D /* SplashFeature in Frameworks */,
+				969D0CC22AFE6F7500CA679D /* AppFeature in Frameworks */,
+				969D0CBA2AFE69B200CA679D /* SearchFeature in Frameworks */,
+				969D0CBC2AFE6BF600CA679D /* HomeFeature in Frameworks */,
+				969D0CC02AFE6E7200CA679D /* MainFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		969BDF4F2AED0FB0006C93E2 /* Home */ = {
+		969D0CB82AFE69B200CA679D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				969BDF512AED0FE3006C93E2 /* HomeFeature.swift */,
 			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		969BDF502AED0FB7006C93E2 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				969BDF532AED1132006C93E2 /* SearchFeature.swift */,
-			);
-			path = Search;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		96F50FF42AE973F200FC0AC1 = {
 			isa = PBXGroup;
 			children = (
-				96F22C3D2AFCBCD700F697AF /* RAKit */,
-				96F5101B2AEA35A300FC0AC1 /* Tests */,
-				96F50FFF2AE973F200FC0AC1 /* Source */,
+				969D0CB72AFE698500CA679D /* RADemo */,
+				96F50FFF2AE973F200FC0AC1 /* iOS */,
 				96F50FFE2AE973F200FC0AC1 /* Products */,
+				969D0CB82AFE69B200CA679D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,59 +64,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		96F50FFF2AE973F200FC0AC1 /* Source */ = {
+		96F50FFF2AE973F200FC0AC1 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				969BDF502AED0FB7006C93E2 /* Search */,
-				969BDF4F2AED0FB0006C93E2 /* Home */,
-				96F510172AE97DCE00FC0AC1 /* Main */,
-				96F510142AE976DA00FC0AC1 /* Splash */,
-				96F510112AE9747300FC0AC1 /* App */,
-				96F510002AE973F200FC0AC1 /* RADemoApp.swift */,
+				96F5101C2AEA5AC900FC0AC1 /* App.swift */,
 				96F510042AE973F300FC0AC1 /* Assets.xcassets */,
-				96F510062AE973F300FC0AC1 /* Preview Content */,
 			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		96F510062AE973F300FC0AC1 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				96F510072AE973F300FC0AC1 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		96F510112AE9747300FC0AC1 /* App */ = {
-			isa = PBXGroup;
-			children = (
-				96F510122AE9749300FC0AC1 /* AppFeature.swift */,
-				96F5101C2AEA5AC900FC0AC1 /* AppDelegate.swift */,
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
-		96F510142AE976DA00FC0AC1 /* Splash */ = {
-			isa = PBXGroup;
-			children = (
-				96F510152AE976E600FC0AC1 /* SplashFeature.swift */,
-			);
-			path = Splash;
-			sourceTree = "<group>";
-		};
-		96F510172AE97DCE00FC0AC1 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				96F510182AE97DDB00FC0AC1 /* MainFeature.swift */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		96F5101B2AEA35A300FC0AC1 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tests;
+			path = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +90,11 @@
 			);
 			name = RADemo;
 			packageProductDependencies = (
-				96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */,
+				969D0CB92AFE69B200CA679D /* SearchFeature */,
+				969D0CBB2AFE6BF600CA679D /* HomeFeature */,
+				969D0CBD2AFE6CC500CA679D /* SplashFeature */,
+				969D0CBF2AFE6E7200CA679D /* MainFeature */,
+				969D0CC12AFE6F7500CA679D /* AppFeature */,
 			);
 			productName = RADemo;
 			productReference = 96F50FFD2AE973F200FC0AC1 /* RADemo.app */;
@@ -198,7 +141,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F510082AE973F300FC0AC1 /* Preview Assets.xcassets in Resources */,
 				96F510052AE973F300FC0AC1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,13 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96F510162AE976E600FC0AC1 /* SplashFeature.swift in Sources */,
-				96F510192AE97DDB00FC0AC1 /* MainFeature.swift in Sources */,
-				96F510132AE9749300FC0AC1 /* AppFeature.swift in Sources */,
-				969BDF542AED1132006C93E2 /* SearchFeature.swift in Sources */,
-				969BDF522AED0FE3006C93E2 /* HomeFeature.swift in Sources */,
-				96F5101D2AEA5AC900FC0AC1 /* AppDelegate.swift in Sources */,
-				96F510012AE973F200FC0AC1 /* RADemoApp.swift in Sources */,
+				96F5101D2AEA5AC900FC0AC1 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +285,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Source/Preview Content\"";
 				DEVELOPMENT_TEAM = WTDP655XT9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -378,7 +313,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Source/Preview Content\"";
 				DEVELOPMENT_TEAM = WTDP655XT9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -435,10 +369,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		96F5100F2AE9746400FC0AC1 /* ComposableArchitecture */ = {
+		969D0CB92AFE69B200CA679D /* SearchFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 96F5100E2AE9746400FC0AC1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
-			productName = ComposableArchitecture;
+			productName = SearchFeature;
+		};
+		969D0CBB2AFE6BF600CA679D /* HomeFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HomeFeature;
+		};
+		969D0CBD2AFE6CC500CA679D /* SplashFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SplashFeature;
+		};
+		969D0CBF2AFE6E7200CA679D /* MainFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MainFeature;
+		};
+		969D0CC12AFE6F7500CA679D /* AppFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,19 +1,25 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct SearchFeature: Reducer {
+public struct SearchFeature: Reducer {
     
-    struct State: Equatable {
+    public init() {}
+    
+    public struct State: Equatable {
         @BindingState var searchText: String = ""
+        
+        public init(searchText: String = "") {
+            self.searchText = searchText
+        }
     }
     
-    enum Action: BindableAction {
+    public enum Action: BindableAction {
         case onAppear
         case searchSuggestionTapped(String)
         case binding(BindingAction<State>)
     }
     
-    var body: some ReducerOf<Self> {
+    public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -36,10 +42,14 @@ struct SearchFeature: Reducer {
 }
 
 
-struct SearchView: View {
+public struct SearchView: View {
     let store: StoreOf<SearchFeature>
     
-    var body: some View {
+    public init(store: StoreOf<SearchFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ScrollView {
                 VStack {
