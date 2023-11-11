@@ -12,6 +12,7 @@ let package = Package(
         .library(name: "SplashFeature", targets: ["SplashFeature"]),
         .library(name: "MainFeature", targets: ["MainFeature"]),
         .library(name: "HomeFeature", targets: ["HomeFeature"]),
+        .library(name: "SearchNavigation", targets: ["SearchNavigation"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
     ],
     dependencies: [
@@ -36,13 +37,20 @@ let package = Package(
             name: "MainFeature",
             dependencies: [
                 "HomeFeature",
-                "SearchFeature",
+                "SearchNavigation",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
         ),
         .target(
             name: "HomeFeature",
             dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "SearchNavigation",
+            dependencies: [
+                "SearchFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),

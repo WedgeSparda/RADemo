@@ -1,6 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
-import SearchFeature
+import SearchNavigation
 import HomeFeature
 
 public struct MainFeature: Reducer {
@@ -9,11 +9,11 @@ public struct MainFeature: Reducer {
     
     public struct State: Equatable {
         var home: HomeFeature.State
-        var search: SearchFeature.State
+        var search: SearchNavigation.State
         
         public init(
             home: HomeFeature.State, 
-            search: SearchFeature.State
+            search: SearchNavigation.State
         ) {
             self.home = home
             self.search = search
@@ -24,7 +24,7 @@ public struct MainFeature: Reducer {
         case onAppear
         
         case home(HomeFeature.Action)
-        case search(SearchFeature.Action)
+        case search(SearchNavigation.Action)
     }
     
     public var body: some ReducerOf<Self> {
@@ -33,7 +33,7 @@ public struct MainFeature: Reducer {
         }
         
         Scope(state: \.search, action: /MainFeature.Action.search) {
-            SearchFeature()
+            SearchNavigation()
         }
         
         Reduce { state, action in
@@ -69,12 +69,12 @@ public struct MainView: View {
                 Image(systemName: "house.fill")
             }
             
-            NavigationStack {
-                SearchView(store: store.scope(
+            SearchNavigationView(
+                store: store.scope(
                     state: \.search,
                     action: { .search($0) }
-                ))
-            }
+                )
+            )
             .tabItem {
                 Text("Search")
                 Image(systemName: "magnifyingglass")
