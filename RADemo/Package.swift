@@ -12,6 +12,9 @@ let package = Package(
         .library(name: "SplashFeature", targets: ["SplashFeature"]),
         .library(name: "MainFeature", targets: ["MainFeature"]),
         .library(name: "HomeFeature", targets: ["HomeFeature"]),
+        .library(name: "GameFeature", targets: ["GameFeature"]),
+        .library(name: "UserFeature", targets: ["UserFeature"]),
+        .library(name: "AchievementFeature", targets: ["AchievementFeature"]),
         .library(name: "SearchNavigation", targets: ["SearchNavigation"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
     ],
@@ -48,9 +51,30 @@ let package = Package(
             ]
         ),
         .target(
+            name: "GameFeature",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "UserFeature",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "AchievementFeature",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
             name: "SearchNavigation",
             dependencies: [
                 "SearchFeature",
+                "GameFeature",
+                "UserFeature",
+                "AchievementFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),

@@ -7,6 +7,7 @@ public struct SearchFeature: Reducer {
     
     public struct State: Equatable {
         @BindingState var searchText: String = ""
+        var searchResults = IdentifiedArrayOf<SearchResult>()
         
         public init(searchText: String = "") {
             self.searchText = searchText
@@ -15,29 +16,33 @@ public struct SearchFeature: Reducer {
     
     public enum Action: BindableAction {
         case onAppear
-        case searchSuggestionTapped(String)
+        case searchResultTapped
+        
         case binding(BindingAction<State>)
     }
     
     public var body: some ReducerOf<Self> {
+        BindingReducer()
         Reduce { state, action in
             switch action {
             case .onAppear:
                 print("SEARCH ON APPEAR")
                 return .none
-            case .searchSuggestionTapped(let suggestion):
-                return Effect.send(
-                    .binding(.set(\.$searchText, suggestion))
-                )
+            case .searchResultTapped:
+                return .none
             case .binding(\.$searchText):
-                print("SEARCH TEXT CHANGED", state.searchText)
+                if state.searchText.isEmpty {
+                    state.searchResults = []
+                } else {
+                    state.searchResults = [
+                        .init(), .init(), .init(), .init(), .init()
+                    ]
+                }
                 return .none
             case .binding:
                 return .none
             }
         }
-        
-        BindingReducer()
     }
 }
 
@@ -57,19 +62,20 @@ public struct SearchView: View {
                         .lineLimit(1)
                         .frame(maxWidth: .infinity)
                         .padding()
+                    
+                    Button("Navigate") {
+                        viewStore.send(.searchResultTapped)
+                    }
+                    
+                    ForEach(viewStore.searchResults) { result in
+                        Text(result.text)
+                            .onTapGesture {
+                                viewStore.send(.searchResultTapped)
+                            }
+                    }
                 }
             }
             .searchable(text: viewStore.$searchText, prompt: nil)
-            .searchSuggestions {
-                VStack {
-                    Text("OLA")
-                        .onTapGesture {
-                            viewStore.send(.searchSuggestionTapped("OLA KE ASE"))
-                        }
-                    Text("OLA")
-                    Text("OLA")
-                }
-            }
             .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
