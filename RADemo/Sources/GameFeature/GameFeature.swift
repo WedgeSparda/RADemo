@@ -1,7 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct GameFeature: Reducer {
+@Reducer
+public struct GameFeature {
     
     public init() {}
     

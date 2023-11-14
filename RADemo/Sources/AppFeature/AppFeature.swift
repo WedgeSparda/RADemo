@@ -3,7 +3,8 @@ import ComposableArchitecture
 import SplashFeature
 import MainFeature
 
-public struct AppFeature: Reducer {
+@Reducer
+public struct AppFeature {
     
     public init() {}
     
@@ -42,10 +43,10 @@ public struct AppFeature: Reducer {
                 return .none
             }
         }
-        .ifCaseLet(/State.splash, action: /Action.splash) {
+        .ifCaseLet(\.splash, action: \.splash) {
             SplashFeature()
         }
-        .ifCaseLet(/State.main, action: /Action.main) {
+        .ifCaseLet(\.main, action: \.main) {
             MainFeature()
         }
     }

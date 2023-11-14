@@ -1,7 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct SearchFeature: Reducer {
+@Reducer
+public struct SearchFeature {
     
     public init() {}
     

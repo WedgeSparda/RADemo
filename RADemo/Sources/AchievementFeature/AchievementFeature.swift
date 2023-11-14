@@ -1,7 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct AchievementFeature: Reducer {
+@Reducer
+public struct AchievementFeature {
     
     public init() {}
     

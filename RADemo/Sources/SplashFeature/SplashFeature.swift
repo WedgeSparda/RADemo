@@ -1,7 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
 
-public struct SplashFeature: Reducer {
+@Reducer
+public struct SplashFeature {
     
     @Dependency(\.continuousClock) var clock
     

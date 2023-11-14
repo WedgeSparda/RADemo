@@ -5,7 +5,8 @@ import GameFeature
 import UserFeature
 import AchievementFeature
 
-public struct SearchNavigation: Reducer {
+@Reducer
+public struct SearchNavigation {
     
     public init() {}
     
@@ -33,16 +34,17 @@ public struct SearchNavigation: Reducer {
                 return .none
             }
         }
-        .forEach(\.path, action: /Action.path) {
+        .forEach(\.path, action: \.path) {
             Path()
         }
         
-        Scope(state: \.search, action: /SearchNavigation.Action.search) {
+        Scope(state: \.search, action: \.search) {
             SearchFeature()
         }
     }
     
-    public struct Path: Reducer {
+    @Reducer
+    public struct Path {
         public enum State: Equatable {
             case game(GameFeature.State)
             case user(UserFeature.State)
@@ -56,14 +58,14 @@ public struct SearchNavigation: Reducer {
         }
         
         public var body: some ReducerOf<Self> {
-            Scope(state: /State.game, action: /Action.game) {
+            Scope(state: \.game, action: \.game) {
                 GameFeature()
             }
-            Scope(state: /State.user, action: /Action.user) {
+            Scope(state: \.user, action: \.user) {
                 UserFeature()
             }
             
-            Scope(state: /State.achievement, action: /Action.achievement) {
+            Scope(state: \.achievement, action: \.achievement) {
                 AchievementFeature()
             }
         }

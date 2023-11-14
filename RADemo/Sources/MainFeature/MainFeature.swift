@@ -3,7 +3,8 @@ import ComposableArchitecture
 import SearchNavigation
 import HomeFeature
 
-public struct MainFeature: Reducer {
+@Reducer
+public struct MainFeature {
     
     public init() {}
     
@@ -28,11 +29,11 @@ public struct MainFeature: Reducer {
     }
     
     public var body: some ReducerOf<Self> {
-        Scope(state: \.home, action: /MainFeature.Action.home) {
+        Scope(state: \.home, action: \.home) {
             HomeFeature()
         }
         
-        Scope(state: \.search, action: /MainFeature.Action.search) {
+        Scope(state: \.search, action: \.search) {
             SearchNavigation()
         }
         
