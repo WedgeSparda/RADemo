@@ -82,7 +82,7 @@ public struct SearchNavigationView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationStackStore(self.store.scope(state: \.path, action: { .path($0) })) {
+            NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
                 SearchView(
                     store: store.scope(
                         state: \.search,
@@ -92,23 +92,17 @@ public struct SearchNavigationView: View {
             } destination: {
                 switch $0 {
                 case .game:
-                    CaseLet(
-                        /SearchNavigation.Path.State.game,
-                         action: SearchNavigation.Path.Action.game,
-                         then: GameView.init(store:)
-                    )
+                    CaseLet(\SearchNavigation.Path.State.game, action: SearchNavigation.Path.Action.game) {
+                        GameView(store: $0)
+                    }
                 case .user:
-                    CaseLet(
-                        /SearchNavigation.Path.State.user,
-                         action: SearchNavigation.Path.Action.user,
-                         then: UserView.init(store:)
-                    )
+                    CaseLet(\SearchNavigation.Path.State.user, action: SearchNavigation.Path.Action.user) {
+                        UserView(store: $0)
+                    }
                 case .achievement:
-                    CaseLet(
-                        /SearchNavigation.Path.State.achievement,
-                         action: SearchNavigation.Path.Action.achievement,
-                         then: AchievementView.init(store:)
-                    )
+                    CaseLet(\SearchNavigation.Path.State.achievement, action: SearchNavigation.Path.Action.achievement) {
+                        AchievementView(store: $0)
+                    }
                 }
             }
         }

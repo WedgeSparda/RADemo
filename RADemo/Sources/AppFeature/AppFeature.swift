@@ -63,12 +63,12 @@ public struct AppView: View {
         SwitchStore(store) { state in
             switch state {
             case .splash:
-                CaseLet(/AppFeature.State.splash, action: AppFeature.Action.splash) { store in
-                    SplashView(store: store)
+                CaseLet(\AppFeature.State.splash, action: AppFeature.Action.splash) {
+                    SplashView(store: $0)
                 }
             case .main:
-                CaseLet(/AppFeature.State.main, action: AppFeature.Action.main) { store in
-                    MainView(store: store)
+                CaseLet(\AppFeature.State.main, action: AppFeature.Action.main) {
+                    MainView(store: $0)
                 }
             }
         }
