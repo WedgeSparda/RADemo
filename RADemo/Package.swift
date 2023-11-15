@@ -8,6 +8,7 @@ let package = Package(
         .iOS(.v17)
     ],
     products: [
+        .library(name: "Shared", targets: ["Shared"]),
         .library(name: "AppFeature", targets: ["AppFeature"]),
         .library(name: "SplashFeature", targets: ["SplashFeature"]),
         .library(name: "MainFeature", targets: ["MainFeature"]),
@@ -22,6 +23,7 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.4.0")
     ],
     targets: [
+        .target(name: "Shared"),
         .target(
             name: "AppFeature",
             dependencies: [
@@ -81,6 +83,7 @@ let package = Package(
         .target(
             name: "SearchFeature",
             dependencies: [
+                "Shared",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         )

@@ -25,8 +25,8 @@ public struct SearchNavigation {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case .search(.searchResultTapped):
-                state.path.append(.game(.init()))
+            case let .search(.searchResultTapped(searchResult)):
+                handleSeachResultTap(&state, searchResult)
                 return .none
             case .search:
                 return .none
@@ -68,6 +68,20 @@ public struct SearchNavigation {
             Scope(state: \.achievement, action: \.achievement) {
                 AchievementFeature()
             }
+        }
+    }
+    
+    private func handleSeachResultTap(
+        _ state: inout State,
+        _ searchResult: SearchResult
+    ) {
+        switch searchResult.kind {
+        case .game:
+            state.path.append(.game(.init()))
+        case .user:
+            state.path.append(.user(.init()))
+        case .achievement:
+            state.path.append(.achievement(.init()))
         }
     }
 }
