@@ -20,7 +20,8 @@ let package = Package(
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.4.2")
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.4.2"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.0")
     ],
     targets: [
         .target(name: "Shared"),
@@ -84,6 +85,7 @@ let package = Package(
             name: "SearchFeature",
             dependencies: [
                 "Shared",
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         )

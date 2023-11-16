@@ -1,7 +1,9 @@
 import ComposableArchitecture
+import DependenciesMacros
 
+@DependencyClient
 struct SearchClient {
-    var search: (_ text: String) async -> [SearchResult]
+    var search: (_ text: String) async -> [SearchResult] = { _ in [] }
 }
 
 extension SearchClient: DependencyKey {
