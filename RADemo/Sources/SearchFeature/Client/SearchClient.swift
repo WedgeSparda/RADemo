@@ -1,7 +1,7 @@
 import ComposableArchitecture
 
 struct SearchClient {
-    var search: (String) async -> [SearchResult]
+    var search: (_ text: String) async -> [SearchResult]
 }
 
 extension SearchClient: DependencyKey {
