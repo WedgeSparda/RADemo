@@ -29,10 +29,7 @@ public struct AppFeature {
 
             case .splash(.onAppReady):
                 state = .main(
-                    .init(
-                        home: .init(),
-                        search: .init()
-                    )
+                    .init()
                 )
                 return .none
                 

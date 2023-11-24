@@ -2,6 +2,7 @@ import SwiftUI
 import ComposableArchitecture
 import SearchNavigation
 import HomeFeature
+import GamesNavigation
 
 @Reducer
 public struct MainFeature {
@@ -9,16 +10,20 @@ public struct MainFeature {
     public init() {}
     
     public struct State: Equatable {
-        var home: HomeFeature.State
-        var search: SearchNavigation.State
+        var home: HomeFeature.State = .init()
+        var search: SearchNavigation.State = .init()
+        var games: GamesNavigation.State = .init()
         
-        public init(
-            home: HomeFeature.State, 
-            search: SearchNavigation.State
-        ) {
-            self.home = home
-            self.search = search
-        }
+        public init() {}
+//        public init(
+//            home: HomeFeature.State, 
+//            search: SearchNavigation.State,
+//            games: GamesNavigation.State
+//        ) {
+//            self.home = home
+//            self.search = search
+//            self.games = games
+//        }
     }
     
     public enum Action {
@@ -26,6 +31,7 @@ public struct MainFeature {
         
         case home(HomeFeature.Action)
         case search(SearchNavigation.Action)
+        case games(GamesNavigation.Action)
     }
     
     public var body: some ReducerOf<Self> {
@@ -37,6 +43,10 @@ public struct MainFeature {
             SearchNavigation()
         }
         
+        Scope(state: \.games, action: \.games) {
+            GamesNavigation()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -46,56 +56,9 @@ public struct MainFeature {
                 return .none
             case .search:
                 return .none
+            case .games:
+                return .none
             }
         }
     }
-}
-
-public struct MainView: View {
-    
-    let store: StoreOf<MainFeature>
-    
-    public init(store: StoreOf<MainFeature>) {
-        self.store = store
-    }
-    
-    public var body: some View {
-        TabView {
-            HomeView(store: store.scope(
-                state: \.home,
-                action: { .home($0) }
-            ))
-            .tabItem {
-                Text("Home")
-                Image(systemName: "house.fill")
-            }
-            
-            SearchNavigationView(
-                store: store.scope(
-                    state: \.search,
-                    action: { .search($0) }
-                )
-            )
-            .tabItem {
-                Text("Search")
-                Image(systemName: "magnifyingglass")
-            }
-        }
-        .onAppear {
-            store.send(.onAppear)
-        }
-    }
-
-}
-
-#Preview {
-    MainView(
-        store: .init(
-            initialState: .init(
-                home: .init(),
-                search: .init()
-            ),
-            reducer: { MainFeature() }
-        )
-    )
 }

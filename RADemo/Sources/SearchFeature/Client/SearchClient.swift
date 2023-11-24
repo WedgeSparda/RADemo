@@ -7,9 +7,9 @@ struct SearchClient {
 }
 
 extension SearchClient: DependencyKey {
-    static var liveValue: SearchClient = Self { _ in
-        SearchResult.mocks
-    }
+    static var liveValue: SearchClient = SearchClient(
+        search: { _ in SearchResult.mocks }
+    )
 }
 
 extension DependencyValues {

@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "MainFeature", targets: ["MainFeature"]),
         .library(name: "HomeFeature", targets: ["HomeFeature"]),
         .library(name: "GameFeature", targets: ["GameFeature"]),
+        .library(name: "GamesNavigation", targets: ["GamesNavigation"]),
         .library(name: "UserFeature", targets: ["UserFeature"]),
         .library(name: "AchievementFeature", targets: ["AchievementFeature"]),
         .library(name: "SearchNavigation", targets: ["SearchNavigation"]),
@@ -24,7 +25,13 @@ let package = Package(
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.0")
     ],
     targets: [
-        .target(name: "Shared"),
+        .target(
+            name: "Shared",
+            dependencies: [
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
         .target(
             name: "AppFeature",
             dependencies: [
@@ -44,6 +51,7 @@ let package = Package(
             dependencies: [
                 "HomeFeature",
                 "SearchNavigation",
+                "GamesNavigation",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
         ),
@@ -56,6 +64,15 @@ let package = Package(
         .target(
             name: "GameFeature",
             dependencies: [
+                "Shared",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "GamesNavigation",
+            dependencies: [
+                "Shared",
+                "GameFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
