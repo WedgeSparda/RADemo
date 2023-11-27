@@ -16,7 +16,7 @@ public struct MainView: View {
         TabView {
             HomeView(store: store.scope(
                 state: \.home,
-                action: { .home($0) }
+                action: \.home
             ))
             .tabItem {
                 Text("Home")
@@ -26,7 +26,7 @@ public struct MainView: View {
             GamesNavigationView(
                 store: store.scope(
                     state: \.games,
-                    action: { .games($0) }
+                    action: \.games
                 )
             )
             .tabItem {
@@ -37,7 +37,7 @@ public struct MainView: View {
             SearchNavigationView(
                 store: store.scope(
                     state: \.search,
-                    action: { .search($0) }
+                    action: \.search
                 )
             )
             .tabItem {

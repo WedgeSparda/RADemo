@@ -13,12 +13,12 @@ public struct GamesNavigationView: View {
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationStackStore(
-                store.scope(state: \.path, action: { .path($0) })
+                store.scope(state: \.path, action: \.path)
             ) {
                 SystemsView(
                     store: store.scope(
                         state: \.allSystems,
-                        action: { .allSystems($0) }
+                        action: \.allSystems
                     )
                 )
             } destination: {

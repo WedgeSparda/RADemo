@@ -15,11 +15,11 @@ public struct SearchNavigationView: View {
     
     public var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationStackStore(store.scope(state: \.path, action: { .path($0) })) {
+            NavigationStackStore(store.scope(state: \.path, action: \.path)) {
                 SearchView(
                     store: store.scope(
                         state: \.search,
-                        action: { .search($0) }
+                        action: \.search
                     )
                 )
             } destination: {
