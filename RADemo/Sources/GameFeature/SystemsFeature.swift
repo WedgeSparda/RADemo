@@ -8,6 +8,7 @@ public struct SystemsFeature {
     
     public init() {}
     
+    @ObservableState
     public struct State: Equatable {
         var systems: [System] = []
         public init() {}

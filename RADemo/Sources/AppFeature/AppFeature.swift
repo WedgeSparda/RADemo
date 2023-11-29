@@ -1,4 +1,3 @@
-import SwiftUI
 import ComposableArchitecture
 import SplashFeature
 import MainFeature
@@ -8,6 +7,7 @@ public struct AppFeature {
     
     public init() {}
     
+    @ObservableState
     public enum State: Equatable {
         case splash(SplashFeature.State)
         case main(MainFeature.State)
@@ -47,39 +47,4 @@ public struct AppFeature {
             MainFeature()
         }
     }
-}
-
-public struct AppView: View {
-    let store: StoreOf<AppFeature>
-    
-    public init(store: StoreOf<AppFeature>) {
-        self.store = store
-    }
-    
-    public var body: some View {
-        SwitchStore(store) { state in
-            switch state {
-            case .splash:
-                CaseLet(\AppFeature.State.splash, action: AppFeature.Action.splash) {
-                    SplashView(store: $0)
-                }
-            case .main:
-                CaseLet(\AppFeature.State.main, action: AppFeature.Action.main) {
-                    MainView(store: $0)
-                }
-            }
-        }
-        .onAppear {
-            store.send(.onAppear)
-        }
-    }
-}
-
-#Preview {
-    AppView(
-        store: .init(
-            initialState: .splash(.init()),
-            reducer: { AppFeature() }
-        )
-    )
 }

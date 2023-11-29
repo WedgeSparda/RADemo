@@ -7,35 +7,28 @@ import UserFeature
 
 public struct SearchNavigationView: View {
     
-    let store: StoreOf<SearchNavigation>
+    @State var store: StoreOf<SearchNavigation>
     
     public init(store: StoreOf<SearchNavigation>) {
         self.store = store
     }
     
     public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationStackStore(store.scope(state: \.path, action: \.path)) {
-                SearchView(
-                    store: store.scope(
-                        state: \.search,
-                        action: \.search
-                    )
-                )
-            } destination: {
-                switch $0 {
-                case .game:
-                    CaseLet(\SearchNavigation.Path.State.game, action: SearchNavigation.Path.Action.game) {
-                        GameView(store: $0)
-                    }
-                case .user:
-                    CaseLet(\SearchNavigation.Path.State.user, action: SearchNavigation.Path.Action.user) {
-                        UserView(store: $0)
-                    }
-                case .achievement:
-                    CaseLet(\SearchNavigation.Path.State.achievement, action: SearchNavigation.Path.Action.achievement) {
-                        AchievementView(store: $0)
-                    }
+        NavigationStack(path: self.$store.scope(state: \.path, action: \.path)) {
+            SearchView(store: store.scope(state: \.search, action: \.search))
+        } destination: {
+            switch $0.state {
+            case .game:
+                if let store = store.scope(state: \.game, action: \.game) {
+                    GameView(store: store)
+                }
+            case .user:
+                if let store = store.scope(state: \.user, action: \.user) {
+                    UserView(store: store)
+                }
+            case .achievement:
+                if let store = store.scope(state: \.achievement, action: \.achievement) {
+                    AchievementView(store: store)
                 }
             }
         }

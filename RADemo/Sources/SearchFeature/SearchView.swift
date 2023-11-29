@@ -9,29 +9,27 @@ public struct SearchView: View {
     }
     
     public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            ScrollView {
-                VStack {
-                    Text("Searching for: \(viewStore.searchText)")
-                        .lineLimit(1)
-                        .frame(maxWidth: .infinity)
-                        .padding()
- 
-                    ForEach(viewStore.searchResults) { result in
-                        Text(result.title)
-                            .onTapGesture {
-                                viewStore.send(.searchResultTapped(result))
-                            }
-                    }
+        ScrollView {
+            VStack {
+                Text("Searching for: \(store.searchText)")
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                
+                ForEach(store.searchResults) { result in
+                    Text(result.title)
+                        .onTapGesture {
+                            store.send(.searchResultTapped(result))
+                        }
                 }
             }
-            .searchable(text: viewStore.$searchText, prompt: nil)
-            .navigationTitle("Search")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .onAppear {
-                viewStore.send(.onAppear)
-            }
+        }
+        .searchable(text: store.$searchText, prompt: nil)
+        .navigationTitle("Search")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .onAppear {
+            store.send(.onAppear)
         }
     }
 }

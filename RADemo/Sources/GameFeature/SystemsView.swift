@@ -10,16 +10,14 @@ public struct SystemsView: View {
     }
     
     public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            List(viewStore.systems) { system in
-                Text(system.name)
-            }
-            .navigationTitle("Games")
-            .navigationBarTitleDisplayMode(.inline)
-            .listStyle(.plain)
-            .onAppear {
-                viewStore.send(.onAppear)
-            }
+        List(store.systems) { system in
+            Text(system.name)
+        }
+        .navigationTitle("Games")
+        .navigationBarTitleDisplayMode(.inline)
+        .listStyle(.plain)
+        .onAppear {
+            store.send(.onAppear)
         }
     }
 }

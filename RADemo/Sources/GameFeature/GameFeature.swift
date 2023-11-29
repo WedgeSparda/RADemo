@@ -5,6 +5,7 @@ public struct GameFeature {
     
     public init() {}
     
+    @ObservableState
     public struct State: Equatable {
         public init() {}
     }

@@ -14,36 +14,23 @@ public struct MainView: View {
     
     public var body: some View {
         TabView {
-            HomeView(store: store.scope(
-                state: \.home,
-                action: \.home
-            ))
-            .tabItem {
-                Text("Home")
-                Image(systemName: "house.fill")
-            }
+            HomeView(store: store.scope(state: \.home, action: \.home))
+                .tabItem {
+                    Text("Home")
+                    Image(systemName: "house.fill")
+                }
             
-            GamesNavigationView(
-                store: store.scope(
-                    state: \.games,
-                    action: \.games
-                )
-            )
-            .tabItem {
-                Text("Games")
-                Image(systemName: "trophy.fill")
-            }
+            GamesNavigationView(store: store.scope(state: \.games, action: \.games))
+                .tabItem {
+                    Text("Games")
+                    Image(systemName: "trophy.fill")
+                }
             
-            SearchNavigationView(
-                store: store.scope(
-                    state: \.search,
-                    action: \.search
-                )
-            )
-            .tabItem {
-                Text("Search")
-                Image(systemName: "magnifyingglass")
-            }
+            SearchNavigationView(store: store.scope(state: \.search, action: \.search))
+                .tabItem {
+                    Text("Search")
+                    Image(systemName: "magnifyingglass")
+                }
         }
         .onAppear {
             store.send(.onAppear)

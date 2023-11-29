@@ -10,6 +10,7 @@ public struct SearchNavigation {
     
     public init() {}
     
+    @ObservableState
     public struct State: Equatable {
         var search: SearchFeature.State = .init()
         var path = StackState<Path.State>()
@@ -45,6 +46,7 @@ public struct SearchNavigation {
     
     @Reducer
     public struct Path {
+        @ObservableState
         public enum State: Equatable {
             case game(GameFeature.State)
             case user(UserFeature.State)

@@ -15,15 +15,6 @@ public struct MainFeature {
         var games: GamesNavigation.State = .init()
         
         public init() {}
-//        public init(
-//            home: HomeFeature.State, 
-//            search: SearchNavigation.State,
-//            games: GamesNavigation.State
-//        ) {
-//            self.home = home
-//            self.search = search
-//            self.games = games
-//        }
     }
     
     public enum Action {

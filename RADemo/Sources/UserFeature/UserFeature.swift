@@ -6,6 +6,7 @@ public struct UserFeature {
     
     public init() {}
     
+    @ObservableState
     public struct State: Equatable {
         
         public init() {}
@@ -26,17 +27,3 @@ public struct UserFeature {
 }
 
 
-public struct UserView: View {
-    
-    let store: StoreOf<UserFeature>
-    
-    public init(store: StoreOf<UserFeature>) {
-        self.store = store
-    }
-    
-    public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            Text("User View")
-        }
-    }
-}

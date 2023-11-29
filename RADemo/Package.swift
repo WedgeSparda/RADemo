@@ -21,7 +21,7 @@ let package = Package(
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.5.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", branch: "observation-beta"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.1")
     ],
     targets: [

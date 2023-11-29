@@ -6,6 +6,7 @@ public struct AchievementFeature {
     
     public init() {}
     
+    @ObservableState
     public struct State: Equatable {
         
         public init() {}
@@ -21,22 +22,6 @@ public struct AchievementFeature {
             case .onAppear:
                 return .none
             }
-        }
-    }
-}
-
-
-public struct AchievementView: View {
-    
-    let store: StoreOf<AchievementFeature>
-    
-    public init(store: StoreOf<AchievementFeature>) {
-        self.store = store
-    }
-    
-    public var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            Text("Achievement View")
         }
     }
 }

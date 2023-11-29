@@ -11,8 +11,9 @@ public struct SearchFeature {
     
     public init() {}
     
+    @ObservableState
     public struct State: Equatable {
-        @BindingState var searchText: String = ""
+        var searchText: String = ""
         var searchResults = [SearchResult]()
         
         public init(searchText: String = "") {
@@ -39,7 +40,7 @@ public struct SearchFeature {
                 return .none
             case .searchResultTapped:
                 return .none
-            case .binding(\.$searchText):
+            case .binding(\.searchText):
                 return onSearchTextChange(state.searchText)
             case .binding:
                 return .none
