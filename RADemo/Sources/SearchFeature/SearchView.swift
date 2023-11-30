@@ -2,7 +2,8 @@ import SwiftUI
 import ComposableArchitecture
 
 public struct SearchView: View {
-    let store: StoreOf<SearchFeature>
+    
+    @State var store: StoreOf<SearchFeature>
     
     public init(store: StoreOf<SearchFeature>) {
         self.store = store
@@ -24,7 +25,7 @@ public struct SearchView: View {
                 }
             }
         }
-        .searchable(text: store.$searchText, prompt: nil)
+        .searchable(text: $store.searchText, prompt: nil)
         .navigationTitle("Search")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)

@@ -16,8 +16,8 @@ public struct SearchNavigationView: View {
     public var body: some View {
         NavigationStack(path: self.$store.scope(state: \.path, action: \.path)) {
             SearchView(store: store.scope(state: \.search, action: \.search))
-        } destination: {
-            switch $0.state {
+        } destination: { store in
+            switch store.state {
             case .game:
                 if let store = store.scope(state: \.game, action: \.game) {
                     GameView(store: store)

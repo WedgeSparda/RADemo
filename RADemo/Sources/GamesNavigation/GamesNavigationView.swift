@@ -11,10 +11,12 @@ public struct GamesNavigationView: View {
     }
     
     public var body: some View {
-        NavigationStack(path: self.$store.scope(state: \.path, action: \.path)) {
-            SystemsView(store: store.scope(state: \.allSystems, action: \.allSystems))
-        } destination: {
-            switch $0.state {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            SystemsView(
+                store: store.scope(state: \.allSystems, action: \.allSystems)
+            )
+        } destination: { store in
+            switch store.state {
             case .game:
                 if let store = store.scope(state: \.game, action: \.game) {
                     GameView(store: store)
