@@ -15,10 +15,10 @@ public struct GamesNavigationView: View {
             SystemsView(
                 store: store.scope(state: \.allSystems, action: \.allSystems)
             )
-        } destination: { store in
-            switch store.state {
+        } destination: {
+            switch $0.state {
             case .game:
-                if let store = store.scope(state: \.game, action: \.game) {
+                if let store = $0.scope(state: \.game, action: \.game) {
                     GameView(store: store)
                 }
             }

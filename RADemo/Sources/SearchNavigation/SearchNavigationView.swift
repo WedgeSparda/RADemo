@@ -14,20 +14,20 @@ public struct SearchNavigationView: View {
     }
     
     public var body: some View {
-        NavigationStack(path: self.$store.scope(state: \.path, action: \.path)) {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
             SearchView(store: store.scope(state: \.search, action: \.search))
-        } destination: { store in
-            switch store.state {
+        } destination: {
+            switch $0.state {
             case .game:
-                if let store = store.scope(state: \.game, action: \.game) {
+                if let store = $0.scope(state: \.game, action: \.game) {
                     GameView(store: store)
                 }
             case .user:
-                if let store = store.scope(state: \.user, action: \.user) {
+                if let store = $0.scope(state: \.user, action: \.user) {
                     UserView(store: store)
                 }
             case .achievement:
-                if let store = store.scope(state: \.achievement, action: \.achievement) {
+                if let store = $0.scope(state: \.achievement, action: \.achievement) {
                     AchievementView(store: store)
                 }
             }
