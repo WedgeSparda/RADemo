@@ -8,27 +8,25 @@ let package = Package(
         .iOS(.v17)
     ],
     products: [
-        .library(name: "Shared", targets: ["Shared"]),
-        .library(name: "AppFeature", targets: ["AppFeature"]),
-        .library(name: "SplashFeature", targets: ["SplashFeature"]),
-        .library(name: "MainFeature", targets: ["MainFeature"]),
-        .library(name: "HomeFeature", targets: ["HomeFeature"]),
-        .library(name: "GameFeature", targets: ["GameFeature"]),
-        .library(name: "GamesNavigation", targets: ["GamesNavigation"]),
-        .library(name: "UserFeature", targets: ["UserFeature"]),
         .library(name: "AchievementFeature", targets: ["AchievementFeature"]),
-        .library(name: "SearchNavigation", targets: ["SearchNavigation"]),
+        .library(name: "AppFeature", targets: ["AppFeature"]),
+        .library(name: "GameFeature", targets: ["GameFeature"]),
+        .library(name: "HomeFeature", targets: ["HomeFeature"]),
+        .library(name: "MainFeature", targets: ["MainFeature"]),
+        .library(name: "Navigation", targets: ["Navigation"]),
         .library(name: "SearchFeature", targets: ["SearchFeature"]),
+        .library(name: "Shared", targets: ["Shared"]),
+        .library(name: "SplashFeature", targets: ["SplashFeature"]),
+        .library(name: "SystemsFeature", targets: ["SystemsFeature"]),
+        .library(name: "UserFeature", targets: ["UserFeature"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", branch: "observation-beta"),
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.1")
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", branch: "observation-beta")
     ],
     targets: [
         .target(
-            name: "Shared",
+            name: "AchievementFeature",
             dependencies: [
-                .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
@@ -41,18 +39,10 @@ let package = Package(
             ]
         ),
         .target(
-            name: "SplashFeature",
+            name: "GameFeature",
             dependencies: [
+                "Shared",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "MainFeature",
-            dependencies: [
-                "HomeFeature",
-                "SearchNavigation",
-                "GamesNavigation",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ]
         ),
         .target(
@@ -62,39 +52,21 @@ let package = Package(
             ]
         ),
         .target(
-            name: "GameFeature",
+            name: "MainFeature",
             dependencies: [
-                "Shared",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "GamesNavigation",
-            dependencies: [
-                "Shared",
-                "GameFeature",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "UserFeature",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "AchievementFeature",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "SearchNavigation",
-            dependencies: [
+                "Navigation",
+                "HomeFeature",
                 "SearchFeature",
+                "SystemsFeature",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
+        ),
+        .target(
+            name: "Navigation",
+            dependencies: [
                 "GameFeature",
-                "UserFeature",
                 "AchievementFeature",
+                "UserFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
@@ -102,7 +74,33 @@ let package = Package(
             name: "SearchFeature",
             dependencies: [
                 "Shared",
-                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+                "Navigation",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "Shared",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "SplashFeature",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "SystemsFeature",
+            dependencies: [
+                "Shared",
+                "Navigation",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
+            name: "UserFeature",
+            dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         )

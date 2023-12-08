@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import Navigation
 
 public struct SystemsView: View {
     
@@ -11,7 +12,9 @@ public struct SystemsView: View {
     
     public var body: some View {
         List(store.systems) { system in
-            Text(system.name)
+            NavigationLink(state: StackNavigation.Path.State.game(.init())) {
+                Text(system.name)
+            }
         }
         .navigationTitle("Games")
         .navigationBarTitleDisplayMode(.inline)

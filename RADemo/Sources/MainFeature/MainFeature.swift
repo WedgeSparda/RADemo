@@ -1,8 +1,8 @@
 import SwiftUI
 import ComposableArchitecture
-import SearchNavigation
+import SearchFeature
 import HomeFeature
-import GamesNavigation
+import SystemsFeature
 
 @Reducer
 public struct MainFeature {
@@ -11,18 +11,17 @@ public struct MainFeature {
     
     public struct State: Equatable {
         var home: HomeFeature.State = .init()
-        var search: SearchNavigation.State = .init()
-        var games: GamesNavigation.State = .init()
+        var games: SystemsFeature.State = .init()
+        var search: SearchFeature.State = .init()
         
         public init() {}
     }
     
     public enum Action {
         case onAppear
-        
         case home(HomeFeature.Action)
-        case search(SearchNavigation.Action)
-        case games(GamesNavigation.Action)
+        case games(SystemsFeature.Action)
+        case search(SearchFeature.Action)
     }
     
     public var body: some ReducerOf<Self> {
@@ -30,14 +29,14 @@ public struct MainFeature {
             HomeFeature()
         }
         
-        Scope(state: \.search, action: \.search) {
-            SearchNavigation()
-        }
-        
         Scope(state: \.games, action: \.games) {
-            GamesNavigation()
+            SystemsFeature()
         }
         
+        Scope(state: \.search, action: \.search) {
+            SearchFeature()
+        }
+
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -45,9 +44,9 @@ public struct MainFeature {
                 return .none
             case .home:
                 return .none
-            case .search:
-                return .none
             case .games:
+                return .none
+            case .search:
                 return .none
             }
         }
