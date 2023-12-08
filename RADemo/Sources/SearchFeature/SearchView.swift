@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import Navigation
 
 public struct SearchView: View {
     
@@ -18,10 +19,9 @@ public struct SearchView: View {
                     .padding()
                 
                 ForEach(store.searchResults) { result in
-                    Text(result.title)
-                        .onTapGesture {
-                            store.send(.searchResultTapped(result))
-                        }
+                    NavigationLink(state: StackNavigation.Path.State.game(.init())) {
+                        Text(result.title)
+                    }
                 }
             }
         }

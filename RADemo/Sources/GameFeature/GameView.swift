@@ -11,5 +11,8 @@ public struct GameView: View {
     
     public var body: some View {
         Text("GAME")
+            .onTapGesture {
+                store.send(.onAppear)
+            }
     }
 }

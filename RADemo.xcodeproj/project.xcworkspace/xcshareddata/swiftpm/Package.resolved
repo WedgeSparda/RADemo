@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-clocks",
       "state" : {
-        "revision" : "d6313381b1bcf0304a5657e6760c644de3ba6550",
-        "version" : "1.0.1"
+        "revision" : "a8421d68068d8f45fbceb418fbf22c5dad4afd33",
+        "version" : "1.0.2"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
         "branch" : "observation-beta",
-        "revision" : "b5d478ee262d9e5bd7d98fa8779b10a9588b7c5e"
+        "revision" : "4e572f3be218d404b9d8e1347c8bc2aa46dd4b0c"
       }
     },
     {

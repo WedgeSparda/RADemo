@@ -1,46 +1,34 @@
 import SwiftUI
 import ComposableArchitecture
-import SearchFeature
 import GameFeature
 import UserFeature
 import AchievementFeature
 
 @Reducer
-public struct SearchNavigation {
+public struct StackNavigation {
     
     public init() {}
     
     @ObservableState
     public struct State: Equatable {
-        var search: SearchFeature.State = .init()
         var path = StackState<Path.State>()
         
         public init() {}
     }
     
     public enum Action {
-        case search(SearchFeature.Action)
         case path(StackAction<Path.State, Path.Action>)
     }
     
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .search(.searchResultTapped(searchResult)):
-                handleSeachResultTap(&state, searchResult)
-                return .none
-            case .search:
-                return .none
             case .path:
                 return .none
             }
         }
         .forEach(\.path, action: \.path) {
             Path()
-        }
-        
-        Scope(state: \.search, action: \.search) {
-            SearchFeature()
         }
     }
     
@@ -59,6 +47,8 @@ public struct SearchNavigation {
             case achievement(AchievementFeature.Action)
         }
         
+        public init() {}
+        
         public var body: some ReducerOf<Self> {
             Scope(state: \.game, action: \.game) {
                 GameFeature()
@@ -72,18 +62,39 @@ public struct SearchNavigation {
             }
         }
     }
+}
+
+public struct StackNavigationView<Root: View>: View {
     
-    private func handleSeachResultTap(
-        _ state: inout State,
-        _ searchResult: SearchResult
+    @State var store: StoreOf<StackNavigation>
+    @ViewBuilder let root: () -> Root
+    
+    public init(
+        store: StoreOf<StackNavigation>,
+        @ViewBuilder root: @escaping () -> Root
     ) {
-        switch searchResult.kind {
-        case .game:
-            state.path.append(.game(.init()))
-        case .user:
-            state.path.append(.user(.init()))
-        case .achievement:
-            state.path.append(.achievement(.init()))
+        self.store = store
+        self.root = root
+    }
+    
+    public var body: some View {
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            root()
+        } destination: {
+            switch $0.state {
+            case .game:
+                if let store = $0.scope(state: \.game, action: \.game) {
+                    GameView(store: store)
+                }
+            case .user:
+                if let store = $0.scope(state: \.user, action: \.user) {
+                    UserView(store: store)
+                }
+            case .achievement:
+                if let store = $0.scope(state: \.achievement, action: \.achievement) {
+                    AchievementView(store: store)
+                }
+            }
         }
     }
 }
