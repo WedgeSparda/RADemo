@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import GameFeature
+import GamesForSystemFeature
 import UserFeature
 import AchievementFeature
 
@@ -37,12 +38,14 @@ public struct StackNavigation {
         @ObservableState
         public enum State: Equatable {
             case game(GameFeature.State)
+            case gamesForSystem(GamesForSystemFeature.State)
             case user(UserFeature.State)
             case achievement(AchievementFeature.State)
         }
         
         public enum Action {
             case game(GameFeature.Action)
+            case gamesForSystem(GamesForSystemFeature.Action)
             case user(UserFeature.Action)
             case achievement(AchievementFeature.Action)
         }
@@ -53,6 +56,11 @@ public struct StackNavigation {
             Scope(state: \.game, action: \.game) {
                 GameFeature()
             }
+            
+            Scope(state: \.gamesForSystem, action: \.gamesForSystem) {
+                GamesForSystemFeature()
+            }
+            
             Scope(state: \.user, action: \.user) {
                 UserFeature()
             }
@@ -85,6 +93,10 @@ public struct StackNavigationView<Root: View>: View {
             case .game:
                 if let store = $0.scope(state: \.game, action: \.game) {
                     GameView(store: store)
+                }
+            case .gamesForSystem:
+                if let store = $0.scope(state: \.gamesForSystem, action: \.gamesForSystem) {
+                    GamesForSystemFeatureView(store: store)
                 }
             case .user:
                 if let store = $0.scope(state: \.user, action: \.user) {

@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "AchievementFeature", targets: ["AchievementFeature"]),
         .library(name: "AppFeature", targets: ["AppFeature"]),
         .library(name: "GameFeature", targets: ["GameFeature"]),
+        .library(name: "GamesForSystemFeature", targets: ["GamesForSystemFeature"]),
         .library(name: "HomeFeature", targets: ["HomeFeature"]),
         .library(name: "MainFeature", targets: ["MainFeature"]),
         .library(name: "Navigation", targets: ["Navigation"]),
@@ -46,6 +47,13 @@ let package = Package(
             ]
         ),
         .target(
+            name: "GamesForSystemFeature",
+            dependencies: [
+                "Shared",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]
+        ),
+        .target(
             name: "HomeFeature",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -67,6 +75,7 @@ let package = Package(
                 "GameFeature",
                 "AchievementFeature",
                 "UserFeature",
+                "GamesForSystemFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
