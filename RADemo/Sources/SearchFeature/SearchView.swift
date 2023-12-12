@@ -19,7 +19,9 @@ public struct SearchView: View {
                     .padding()
                 
                 ForEach(store.searchResults) { result in
-                    NavigationLink(state: StackNavigation.Path.State.game(.init())) {
+                    NavigationLink(
+                        state: StackNavigation.Path.State.game(.init())
+                    ) {
                         Text(result.title)
                     }
                 }

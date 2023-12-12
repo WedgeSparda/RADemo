@@ -1,9 +1,9 @@
-import SwiftUI
+import AchievementFeature
 import ComposableArchitecture
 import GameFeature
 import GamesForSystemFeature
+import SwiftUI
 import UserFeature
-import AchievementFeature
 
 @Reducer
 public struct StackNavigation {
@@ -24,6 +24,10 @@ public struct StackNavigation {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case let .path(.element(id: _, action: .gamesForSystem(.gameRowTapped(game)))):
+                print("Tapped \(game.title)")
+                state.path.append(.game(.init()))
+                return .none
             case .path:
                 return .none
             }
@@ -37,22 +41,26 @@ public struct StackNavigation {
     public struct Path {
         @ObservableState
         public enum State: Equatable {
+            case achievement(AchievementFeature.State)
             case game(GameFeature.State)
             case gamesForSystem(GamesForSystemFeature.State)
             case user(UserFeature.State)
-            case achievement(AchievementFeature.State)
         }
         
         public enum Action {
+            case achievement(AchievementFeature.Action)
             case game(GameFeature.Action)
             case gamesForSystem(GamesForSystemFeature.Action)
             case user(UserFeature.Action)
-            case achievement(AchievementFeature.Action)
         }
         
         public init() {}
         
         public var body: some ReducerOf<Self> {
+            Scope(state: \.achievement, action: \.achievement) {
+                AchievementFeature()
+            }
+            
             Scope(state: \.game, action: \.game) {
                 GameFeature()
             }
@@ -63,10 +71,6 @@ public struct StackNavigation {
             
             Scope(state: \.user, action: \.user) {
                 UserFeature()
-            }
-            
-            Scope(state: \.achievement, action: \.achievement) {
-                AchievementFeature()
             }
         }
     }
@@ -90,6 +94,10 @@ public struct StackNavigationView<Root: View>: View {
             root()
         } destination: {
             switch $0.state {
+            case .achievement:
+                if let store = $0.scope(state: \.achievement, action: \.achievement) {
+                    AchievementView(store: store)
+                }
             case .game:
                 if let store = $0.scope(state: \.game, action: \.game) {
                     GameView(store: store)
@@ -101,10 +109,6 @@ public struct StackNavigationView<Root: View>: View {
             case .user:
                 if let store = $0.scope(state: \.user, action: \.user) {
                     UserView(store: store)
-                }
-            case .achievement:
-                if let store = $0.scope(state: \.achievement, action: \.achievement) {
-                    AchievementView(store: store)
                 }
             }
         }

@@ -13,12 +13,14 @@ public struct SystemsView: View {
     
     public var body: some View {
         List(store.systems) { system in
-            NavigationLink(state: StackNavigation.Path.State.gamesForSystem(.init(system: system))) {
-               SystemsListRowView(system: system)
+            NavigationLink(
+                state: StackNavigation.Path.State.gamesForSystem(.init(system: system))
+            ) {
+                SystemsListRowView(system: system)
             }
             .listRowSeparator(.hidden)
         }
-        .navigationTitle("Games")
+        .navigationTitle("Systems")
         .navigationBarTitleDisplayMode(.inline)
         .listStyle(.plain)
         .onAppear {

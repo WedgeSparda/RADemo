@@ -62,8 +62,8 @@ let package = Package(
         .target(
             name: "MainFeature",
             dependencies: [
-                "Navigation",
                 "HomeFeature",
+                "Navigation",
                 "SearchFeature",
                 "SystemsFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
@@ -72,10 +72,10 @@ let package = Package(
         .target(
             name: "Navigation",
             dependencies: [
-                "GameFeature",
                 "AchievementFeature",
-                "UserFeature",
+                "GameFeature",
                 "GamesForSystemFeature",
+                "UserFeature",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
@@ -102,8 +102,8 @@ let package = Package(
         .target(
             name: "SystemsFeature",
             dependencies: [
-                "Shared",
                 "Navigation",
+                "Shared",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),

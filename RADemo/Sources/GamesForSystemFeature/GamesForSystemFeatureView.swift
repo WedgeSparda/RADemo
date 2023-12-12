@@ -1,6 +1,6 @@
 import SwiftUI
-import Shared
 import ComposableArchitecture
+import Shared
 
 public struct GamesForSystemFeatureView: View {
     
@@ -11,7 +11,26 @@ public struct GamesForSystemFeatureView: View {
     }
     
     public var body: some View {
-        Text("System is \(store.system?.name ?? "Unknown")")
+        Group {
+            if store.games.isEmpty {
+                ProgressView()
+            } else {
+                List(store.games) { game in
+                    HStack {
+                        Text(game.title)
+                        Spacer()
+                    }
+                    .onTapGesture {
+                        store.send(.gameRowTapped(game))
+                    }
+                }
+                .listStyle(.plain)
+            }
+        }
+        .navigationTitle(store.system?.name ?? "Unknown")
+        .task {
+            store.send(.onAppear)
+        }
     }
 }
 

@@ -3,21 +3,16 @@ import DependenciesMacros
 
 @DependencyClient
 public struct SystemClient {
-    public var getAll: () async -> [System] = { System.all }
-    public var getBy: (_ id: Int) async -> System = { System.with(id: $0) }
-    
-    func foo(
-        a: Int,
-        b: String,
-        c: [String: Any] = [:]
-    ) {
-    }
+    public var getAll: () async throws -> [System]
+    public var getBy: (_ id: Int) async throws -> System
+    public var getGamesForSystem: (_ system: System) async throws -> [SystemGame] 
 }
 
 extension SystemClient: DependencyKey {
     public static var liveValue: SystemClient  = SystemClient(
         getAll: { System.all },
-        getBy: { System.with(id: $0) }
+        getBy: { System.with(id: $0) },
+        getGamesForSystem: { SystemGame.gamesFor($0) }
     )
 }
 

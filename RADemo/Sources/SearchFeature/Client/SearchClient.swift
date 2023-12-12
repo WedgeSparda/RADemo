@@ -3,7 +3,7 @@ import DependenciesMacros
 
 @DependencyClient
 struct SearchClient {
-    var search: (_ text: String) async -> [SearchResult] = { _ in [] }
+    var search: (_ text: String) async throws -> [SearchResult]
 }
 
 extension SearchClient: DependencyKey {

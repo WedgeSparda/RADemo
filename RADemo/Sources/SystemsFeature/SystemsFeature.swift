@@ -17,7 +17,6 @@ public struct SystemsFeature {
     public enum Action {
         case onAppear
         case show([System])
-        case systemTapped(System)
     }
     
     public var body: some ReducerOf<Self> {
@@ -25,14 +24,11 @@ public struct SystemsFeature {
             switch action {
             case .onAppear:
                 return .run { sender in
-                    let systems = await systemClient.getAll()
+                    let systems = try await systemClient.getAll()
                     await sender(.show(systems))
                 }
             case let .show(systems):
                 state.systems = systems
-                return .none
-            case let .systemTapped(system):
-                print("TAPPED", system.name)
                 return .none
             }
         }

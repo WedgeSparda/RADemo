@@ -42,7 +42,7 @@
       "location" : "https://github.com/pointfreeco/swift-composable-architecture",
       "state" : {
         "branch" : "observation-beta",
-        "revision" : "b29d5defe7163f9f5843cc9aa7b81c2fb308c66d"
+        "revision" : "c85ccbeee13a15aecc19d8db8b59e1b1206a5922"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-dependencies",
       "state" : {
-        "revision" : "9783b58167f7618cb86011156e741cbc6f4cc864",
-        "version" : "1.1.2"
+        "revision" : "9af88769455a6fb46351ed4e4773de252584c412",
+        "version" : "1.1.3"
       }
     },
     {

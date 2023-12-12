@@ -9,6 +9,14 @@ extension System {
         System(id: 6, name: "Game Boy", iconURL: "https://static.retroachievements.org/assets/images/system/gb.png")
     }
     
+    public static var mock2: System {
+        System(id: 1, name: "Genesis/Mega Drive", iconURL: "https://static.retroachievements.org/assets/images/system/md.png")
+    }
+    
+    public static var mock3: System {
+        System(id: 12, name: "PlayStation", iconURL: "https://static.retroachievements.org/assets/images/system/ps1.png")
+    }
+    
     public static var all: [System] {
         [
             System(id: 4, name: "Game Boy", iconURL: "https://static.retroachievements.org/assets/images/system/gb.png"),

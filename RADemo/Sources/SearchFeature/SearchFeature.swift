@@ -55,7 +55,7 @@ public struct SearchFeature {
         } else {
             return .run { sender in
                 try await clock.sleep(for: .milliseconds(300))
-                let searchResults = await searchClient.search(searchText)
+                let searchResults = try await searchClient.search(searchText)
                 await sender(.list(searchResults))
             }
             .cancellable(id: CancelID.searchQuery, cancelInFlight: true)
