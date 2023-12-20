@@ -2,7 +2,7 @@ import SwiftUI
 import ComposableArchitecture
 import Shared
 
-public struct GamesForSystemFeatureView: View {
+public struct GamesForSystemView: View {
     
     let store: StoreOf<GamesForSystemFeature>
     
@@ -17,7 +17,7 @@ public struct GamesForSystemFeatureView: View {
             } else {
                 List(store.games) { game in
                     HStack {
-                        Text(game.title)
+                        GamesForSystemListRow(game: game)
                         Spacer()
                     }
                     .onTapGesture {
@@ -35,7 +35,7 @@ public struct GamesForSystemFeatureView: View {
 }
 
 #Preview {
-    GamesForSystemFeatureView(
+    GamesForSystemView(
         store: .init(initialState: .init(system: .mock), reducer: {
             GamesForSystemFeature()
         })
