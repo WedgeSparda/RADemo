@@ -13,7 +13,7 @@ public struct MainView: View {
         StackNavigation()
     }
     
-    @State var search: StoreOf<StackNavigation> = .init(initialState: .init()) {
+    @State var searchNavigation: StoreOf<StackNavigation> = .init(initialState: .init()) {
         StackNavigation()
     }
     
@@ -30,7 +30,7 @@ public struct MainView: View {
                 }
             
             StackNavigationView(
-                store: search,
+                store: gamesNavigation,
                 root: {
                     SystemsView(store: store.scope(state: \.games, action: \.games))
                 }
@@ -41,7 +41,7 @@ public struct MainView: View {
             }
             
             StackNavigationView(
-                store: search,
+                store: searchNavigation,
                 root: {
                     SearchView(store: store.scope(state: \.search, action: \.search))
                 }

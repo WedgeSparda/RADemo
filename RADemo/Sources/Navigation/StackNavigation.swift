@@ -104,7 +104,7 @@ public struct StackNavigationView<Root: View>: View {
                 }
             case .gamesForSystem:
                 if let store = $0.scope(state: \.gamesForSystem, action: \.gamesForSystem) {
-                    GamesForSystemFeatureView(store: store)
+                    GamesForSystemView(store: store)
                 }
             case .user:
                 if let store = $0.scope(state: \.user, action: \.user) {
