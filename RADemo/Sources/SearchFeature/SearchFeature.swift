@@ -23,7 +23,7 @@ public struct SearchFeature {
     
     public enum Action: BindableAction {
         case onAppear
-        case list([SearchResult])
+        case searchResponse([SearchResult])
         case searchResultTapped(SearchResult)
         
         case binding(BindingAction<State>)
@@ -35,7 +35,7 @@ public struct SearchFeature {
             switch action {
             case .onAppear:
                 return .none
-            case let .list(searchResults):
+            case let .searchResponse(searchResults):
                 state.searchResults = searchResults
                 return .none
             case .searchResultTapped:
@@ -51,12 +51,12 @@ public struct SearchFeature {
     
     private func onSearchTextChange(_ searchText: String) -> Effect<Action> {
         if searchText.isEmpty {
-            return .send(.list([]))
+            return .send(.searchResponse([]))
         } else {
-            return .run { sender in
+            return .run { send in
                 try await clock.sleep(for: .milliseconds(300))
                 let searchResults = try await searchClient.search(searchText)
-                await sender(.list(searchResults))
+                await send(.searchResponse(searchResults))
             }
             .cancellable(id: CancelID.searchQuery, cancelInFlight: true)
         }

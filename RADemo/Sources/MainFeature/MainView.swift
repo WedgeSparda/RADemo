@@ -23,11 +23,15 @@ public struct MainView: View {
     
     public var body: some View {
         TabView {
-            HomeView(store: store.scope(state: \.home, action: \.home))
-                .tabItem {
-                    Text("Home")
-                    Image(systemName: "house.fill")
-                }
+            HomeView(
+                store: store.scope(state: \.home, action: \.home)
+            )
+            .toolbarBackground(.black, for: .tabBar)
+            .tabItem {
+                Text("Home")
+                Image(systemName: "house.fill")
+            }
+            
             
             StackNavigationView(
                 store: gamesNavigation,
@@ -35,6 +39,7 @@ public struct MainView: View {
                     SystemsView(store: store.scope(state: \.games, action: \.games))
                 }
             )
+            .toolbarBackground(.black, for: .tabBar)
             .tabItem {
                 Text("Games")
                 Image(systemName: "trophy.fill")
@@ -46,6 +51,7 @@ public struct MainView: View {
                     SearchView(store: store.scope(state: \.search, action: \.search))
                 }
             )
+            .toolbarBackground(.black, for: .tabBar)
             .tabItem {
                 Text("Search")
                 Image(systemName: "magnifyingglass")

@@ -23,9 +23,9 @@ public struct SystemsFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .run { sender in
+                return .run { send in
                     let systems = try await systemClient.getAll()
-                    await sender(.show(systems))
+                    await send(.show(systems))
                 }
             case let .show(systems):
                 state.systems = systems
