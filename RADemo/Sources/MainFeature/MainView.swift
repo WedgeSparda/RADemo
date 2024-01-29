@@ -23,39 +23,40 @@ public struct MainView: View {
     
     public var body: some View {
         TabView {
-            HomeView(
-                store: store.scope(state: \.home, action: \.home)
-            )
-            .toolbarBackground(.black, for: .tabBar)
-            .tabItem {
-                Text("Home")
-                Image(systemName: "house.fill")
-            }
-            
-            
-            StackNavigationView(
-                store: gamesNavigation,
-                root: {
-                    SystemsView(store: store.scope(state: \.games, action: \.games))
+            Group {
+                HomeView(
+                    store: store.scope(state: \.home, action: \.home)
+                )
+                .tabItem {
+                    Text("Home")
+                    Image(systemName: "house.fill")
                 }
-            )
-            .toolbarBackground(.black, for: .tabBar)
-            .tabItem {
-                Text("Games")
-                Image(systemName: "trophy.fill")
-            }
-            
-            StackNavigationView(
-                store: searchNavigation,
-                root: {
-                    SearchView(store: store.scope(state: \.search, action: \.search))
+                
+                
+                StackNavigationView(
+                    store: gamesNavigation,
+                    root: {
+                        SystemsView(store: store.scope(state: \.games, action: \.games))
+                    }
+                )
+                .tabItem {
+                    Text("Games")
+                    Image(systemName: "trophy.fill")
                 }
-            )
-            .toolbarBackground(.black, for: .tabBar)
-            .tabItem {
-                Text("Search")
-                Image(systemName: "magnifyingglass")
+                
+                StackNavigationView(
+                    store: searchNavigation,
+                    root: {
+                        SearchView(store: store.scope(state: \.search, action: \.search))
+                    }
+                )
+                .tabItem {
+                    Text("Search")
+                    Image(systemName: "magnifyingglass")
+                }
             }
+            .toolbarBackground(.indigo, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
         }
         .onAppear {
             store.send(.onAppear)
