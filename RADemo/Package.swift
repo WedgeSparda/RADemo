@@ -2,116 +2,109 @@
 
 import PackageDescription
 
+extension Product {
+    static func defineProduct(_ featureName: String) -> Product {
+        .library(name: featureName, targets: [featureName])
+    }
+}
+
+extension Target {
+    static func defineTarget(_ featureName: String, dependencies: [Target.Dependency] = []) -> Target {
+        .target(
+            name: featureName,
+            dependencies: dependencies + targetBaseDependencies
+        )
+    }
+}
+
+let platforms: [SupportedPlatform] = [.iOS(.v17)]
+
+let products: [Product] = [
+    .defineProduct("AchievementFeature"),
+    .defineProduct("AppFeature"),
+    .defineProduct("GameFeature"),
+    .defineProduct("GamesForSystemFeature"),
+    .defineProduct("HomeFeature"),
+    .defineProduct("MainFeature"),
+    .defineProduct("Navigation"),
+    .defineProduct("SearchFeature"),
+    .defineProduct("Shared"),
+    .defineProduct("SplashFeature"),
+    .defineProduct("SystemsFeature"),
+    .defineProduct("UserFeature")
+]
+
+let dependenciesPackages: [Package.Dependency] = [
+    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.8.0")
+]
+
+let targetBaseDependencies: [Target.Dependency] = [
+    .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+]
+
 let package = Package(
     name: "RADemo",
-    platforms: [
-        .iOS(.v17)
-    ],
-    products: [
-        .library(name: "AchievementFeature", targets: ["AchievementFeature"]),
-        .library(name: "AppFeature", targets: ["AppFeature"]),
-        .library(name: "GameFeature", targets: ["GameFeature"]),
-        .library(name: "GamesForSystemFeature", targets: ["GamesForSystemFeature"]),
-        .library(name: "HomeFeature", targets: ["HomeFeature"]),
-        .library(name: "MainFeature", targets: ["MainFeature"]),
-        .library(name: "Navigation", targets: ["Navigation"]),
-        .library(name: "SearchFeature", targets: ["SearchFeature"]),
-        .library(name: "Shared", targets: ["Shared"]),
-        .library(name: "SplashFeature", targets: ["SplashFeature"]),
-        .library(name: "SystemsFeature", targets: ["SystemsFeature"]),
-        .library(name: "UserFeature", targets: ["UserFeature"]),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.7.0")
-    ],
+    platforms: platforms,
+    products: products,
+    dependencies: dependenciesPackages,
     targets: [
-        .target(
-            name: "AchievementFeature",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "AppFeature",
+        .defineTarget("AchievementFeature"),
+        .defineTarget(
+            "AppFeature",
             dependencies: [
                 "SplashFeature",
-                "MainFeature",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                "MainFeature"
             ]
         ),
-        .target(
-            name: "GameFeature",
+        .defineTarget(
+            "GameFeature",
             dependencies: [
-                "Shared",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                "Shared"
             ]
         ),
-        .target(
-            name: "GamesForSystemFeature",
+        .defineTarget(
+            "GamesForSystemFeature",
             dependencies: [
-                "Shared",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                "Shared"
             ]
         ),
-        .target(
-            name: "HomeFeature",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "MainFeature",
+        .defineTarget("HomeFeature"),
+
+
+        .defineTarget(
+            "MainFeature",
             dependencies: [
                 "HomeFeature",
                 "Navigation",
                 "SearchFeature",
-                "SystemsFeature",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                "SystemsFeature"
             ]
         ),
-        .target(
-            name: "Navigation",
+        .defineTarget(
+            "Navigation",
             dependencies: [
                 "AchievementFeature",
                 "GameFeature",
                 "GamesForSystemFeature",
-                "UserFeature",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                "UserFeature"
             ]
         ),
-        .target(
-            name: "SearchFeature",
+        .defineTarget(
+            "SearchFeature",
             dependencies: [
                 "Shared",
-                "Navigation",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                "Navigation"
             ]
         ),
-        .target(
-            name: "Shared",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "SplashFeature",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "SystemsFeature",
+        .defineTarget("Shared"),
+        .defineTarget("SplashFeature"),
+        .defineTarget(
+            "SystemsFeature",
             dependencies: [
                 "Navigation",
-                "Shared",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                "Shared"
             ]
         ),
-        .target(
-            name: "UserFeature",
-            dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        )
+        .defineTarget("UserFeature")
     ]
 )
