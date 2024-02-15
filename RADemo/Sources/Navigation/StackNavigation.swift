@@ -40,6 +40,8 @@ public struct StackNavigation {
     }
 }
 
+// MARK: - View
+
 public struct StackNavigationView<Root: View>: View {
     
     @Bindable var store: StoreOf<StackNavigation>

@@ -9,10 +9,14 @@ extension Product {
 }
 
 extension Target {
+    private static let targetBaseDependencies: [Target.Dependency] = [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+    ]
+    
     static func defineTarget(_ featureName: String, dependencies: [Target.Dependency] = []) -> Target {
         .target(
             name: featureName,
-            dependencies: dependencies + targetBaseDependencies
+            dependencies: targetBaseDependencies + dependencies
         )
     }
 }
@@ -36,10 +40,6 @@ let products: [Product] = [
 
 let dependenciesPackages: [Package.Dependency] = [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.8.0")
-]
-
-let targetBaseDependencies: [Target.Dependency] = [
-    .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
 ]
 
 let package = Package(

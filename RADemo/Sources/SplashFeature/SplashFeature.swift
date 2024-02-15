@@ -38,3 +38,32 @@ public struct SplashFeature {
         }
     }
 }
+
+// MARK: - View
+
+public struct SplashView: View {
+    
+    let store: StoreOf<SplashFeature>
+    
+    public init(store: StoreOf<SplashFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
+        Text("SPLASH")
+            .onAppear {
+                store.send(.onAppear)
+            }
+    }
+}
+
+// MARK: - Preview
+
+#Preview {
+    SplashView(
+        store: .init(
+            initialState: .init(),
+            reducer: { SplashFeature() }
+        )
+    )
+}

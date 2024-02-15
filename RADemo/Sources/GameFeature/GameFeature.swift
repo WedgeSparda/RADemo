@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import SwiftUI
 
 @Reducer
 public struct GameFeature {
@@ -24,3 +25,20 @@ public struct GameFeature {
     }
 }
 
+// MARK: - View
+
+public struct GameView: View {
+    
+    let store: StoreOf<GameFeature>
+    
+    public init(store: StoreOf<GameFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
+        Text("GAME")
+            .onTapGesture {
+                store.send(.onAppear)
+            }
+    }
+}

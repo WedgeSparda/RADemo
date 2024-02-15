@@ -1,5 +1,6 @@
-import SwiftUI
 import ComposableArchitecture
+import Navigation
+import SwiftUI
 
 @Reducer
 public struct SearchFeature {
@@ -60,5 +61,55 @@ public struct SearchFeature {
             }
             .cancellable(id: CancelID.searchQuery, cancelInFlight: true)
         }
+    }
+}
+
+// MARK: - View
+
+public struct SearchView: View {
+    
+    @State var store: StoreOf<SearchFeature>
+    
+    public init(store: StoreOf<SearchFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
+        ScrollView {
+            VStack {
+                Text("Searching for: \(store.searchText)")
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                
+                ForEach(store.searchResults) { result in
+                    NavigationLink(
+                        state: StackNavigation.Path.State.game(.init())
+                    ) {
+                        Text(result.title)
+                    }
+                }
+            }
+        }
+        .searchable(text: $store.searchText, prompt: nil)
+        .navigationTitle("Search")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .onAppear {
+            store.send(.onAppear)
+        }
+    }
+}
+
+// MARK: - Preview
+
+#Preview {
+    NavigationStack {
+        SearchView(
+            store: .init(
+                initialState: .init(),
+                reducer: { SearchFeature() }
+            )
+        )
     }
 }

@@ -1,7 +1,8 @@
-import SwiftUI
 import ComposableArchitecture
-import SearchFeature
 import HomeFeature
+import Navigation
+import SearchFeature
+import SwiftUI
 import SystemsFeature
 
 @Reducer
@@ -51,4 +52,77 @@ public struct MainFeature {
             }
         }
     }
+}
+
+// MARK: - View
+
+public struct MainView: View {
+    
+    let store: StoreOf<MainFeature>
+    
+    @State var gamesNavigation: StoreOf<StackNavigation> = .init(initialState: .init()) {
+        StackNavigation()
+    }
+    
+    @State var searchNavigation: StoreOf<StackNavigation> = .init(initialState: .init()) {
+        StackNavigation()
+    }
+    
+    public init(store: StoreOf<MainFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
+        TabView {
+            Group {
+                HomeView(
+                    store: store.scope(state: \.home, action: \.home)
+                )
+                .tabItem {
+                    Text("Home")
+                    Image(systemName: "house.fill")
+                }
+                
+                
+                StackNavigationView(
+                    store: gamesNavigation,
+                    root: {
+                        SystemsView(store: store.scope(state: \.games, action: \.games))
+                    }
+                )
+                .tabItem {
+                    Text("Games")
+                    Image(systemName: "trophy.fill")
+                }
+                
+                StackNavigationView(
+                    store: searchNavigation,
+                    root: {
+                        SearchView(store: store.scope(state: \.search, action: \.search))
+                    }
+                )
+                .tabItem {
+                    Text("Search")
+                    Image(systemName: "magnifyingglass")
+                }
+            }
+            .toolbarBackground(.indigo, for: .tabBar)
+            .toolbarBackground(.visible, for: .tabBar)
+        }
+        .onAppear {
+            store.send(.onAppear)
+        }
+    }
+
+}
+
+// MARK: - Preview
+
+#Preview {
+    MainView(
+        store: .init(
+            initialState: .init(),
+            reducer: { MainFeature() }
+        )
+    )
 }

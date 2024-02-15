@@ -1,5 +1,7 @@
 import ComposableArchitecture
+import Navigation
 import Shared
+import SwiftUI
 
 @Reducer
 public struct SystemsFeature {
@@ -35,4 +37,38 @@ public struct SystemsFeature {
     }
 }
 
+// MARK: - View
 
+public struct SystemsView: View {
+    
+    let store: StoreOf<SystemsFeature>
+    
+    public init(store: StoreOf<SystemsFeature>) {
+        self.store = store
+    }
+    
+    public var body: some View {
+        List(store.systems) { system in
+            NavigationLink(
+                state: StackNavigation.Path.State.gamesForSystem(.init(system: system))
+            ) {
+                SystemsListRowView(system: system)
+            }
+            .listRowSeparator(.hidden)
+        }
+        .navigationTitle("Systems")
+        .navigationBarTitleDisplayMode(.inline)
+        .listStyle(.plain)
+        .onAppear {
+            store.send(.onAppear)
+        }
+    }
+}
+
+// MARK: - Preview
+
+#Preview {
+    SystemsView(store: .init(initialState: .init(), reducer: {
+        SystemsFeature()
+    }))
+}
