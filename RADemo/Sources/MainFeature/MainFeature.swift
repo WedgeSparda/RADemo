@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import HomeFeature
 import Navigation
+import Resources
 import SearchFeature
 import SwiftUI
 import SystemsFeature
@@ -106,9 +107,10 @@ public struct MainView: View {
                     Image(systemName: "magnifyingglass")
                 }
             }
-            .toolbarBackground(.indigo, for: .tabBar)
+            .toolbarBackground(Color.tabBarBackground, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
         }
+        .accentColor(Color.highlightedText)
         .onAppear {
             store.send(.onAppear)
         }

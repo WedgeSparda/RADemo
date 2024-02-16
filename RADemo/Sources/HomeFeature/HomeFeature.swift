@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import Resources
 
 @Reducer
 public struct HomeFeature {
@@ -36,10 +37,15 @@ public struct HomeView: View {
     }
     
     public var body: some View {
-        Text("HOME")
-            .onAppear {
-                store.send(.onAppear)
-            }
+        ZStack {
+            Color.mainBackground
+            Text("HOME")
+                .foregroundColor(.highlightedText)
+                .onAppear {
+                    store.send(.onAppear)
+                }
+        }
+        .ignoresSafeArea()
     }
 }
 

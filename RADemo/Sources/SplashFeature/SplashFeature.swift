@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import Resources
 
 @Reducer
 public struct SplashFeature {
@@ -50,10 +51,15 @@ public struct SplashView: View {
     }
     
     public var body: some View {
-        Text("SPLASH")
-            .onAppear {
-                store.send(.onAppear)
-            }
+        ZStack {
+            Color.mainBackground
+            Text("SPLASH")
+                .foregroundColor(.highlightedText)
+                .onAppear {
+                    store.send(.onAppear)
+                }
+        }
+        .ignoresSafeArea()
     }
 }
 
