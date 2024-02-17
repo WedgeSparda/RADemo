@@ -4,6 +4,7 @@ public extension Color {
     static let mainBackground: Color = named("mainBackground")
     static let highlightedText: Color = named("highlightedText")
     static let tabBarBackground: Color = named("tabBarBackground")
+    static let rowBackground: Color = named("rowBackground")
     static let text: Color = named("text")
 }
 

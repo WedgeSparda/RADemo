@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Shared
 import SwiftUI
+import Resources
 
 @Reducer
 public struct GamesForSystemFeature {
@@ -43,7 +44,8 @@ public struct GamesForSystemFeature {
             case let .show(games):
                 state.games = games
                 return .none
-            case .gameRowTapped:
+            case let .gameRowTapped(game):
+                print("TAPPED", game.title)
                 return .none
             }
         }
@@ -65,19 +67,22 @@ public struct GamesForSystemView: View {
             if store.games.isEmpty {
                 ProgressView()
             } else {
-                List(store.games) { game in
-                    HStack {
-                        GamesForSystemListRow(game: game)
-                        Spacer()
-                    }
-                    .onTapGesture {
-                        store.send(.gameRowTapped(game))
+                ScrollView {
+                    LazyVStack {
+                        ForEach(store.games) { game in
+                            HStack {
+                                GamesForSystemListRow(game: game)
+                            }
+                            .onTapGesture {
+                                store.send(.gameRowTapped(game))
+                            }
+                        }
                     }
                 }
-                .listStyle(.plain)
+                .background(Color.mainBackground)
             }
         }
-        .navigationTitle(store.system?.name ?? "Unknown")
+        .navigationStyle(store.system?.name ?? "Unknown")
         .task {
             store.send(.onAppear)
         }

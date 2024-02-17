@@ -29,6 +29,7 @@ public struct SystemsFeature {
                     let systems = try await systemClient.getAll()
                     await send(.show(systems))
                 }
+                
             case let .show(systems):
                 state.systems = systems
                 return .none
@@ -48,17 +49,19 @@ public struct SystemsView: View {
     }
     
     public var body: some View {
-        List(store.systems) { system in
-            NavigationLink(
-                state: StackNavigation.Path.State.gamesForSystem(.init(system: system))
-            ) {
-                SystemsListRowView(system: system)
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(store.systems) { system in
+                    NavigationLink(
+                        state: StackNavigation.Path.State.gamesForSystem(.init(system: system))
+                    ) {
+                        SystemsListRowView(system: system)
+                    }
+                }
             }
-            .listRowSeparator(.hidden)
         }
-        .navigationTitle("Systems")
-        .navigationBarTitleDisplayMode(.inline)
-        .listStyle(.plain)
+        .navigationStyle("Systems")
+        .background(Color.mainBackground)
         .onAppear {
             store.send(.onAppear)
         }

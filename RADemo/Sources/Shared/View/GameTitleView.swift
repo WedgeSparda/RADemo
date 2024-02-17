@@ -1,4 +1,5 @@
 import SwiftUI
+import Resources
 
 public struct GameTitleView: View {
     
@@ -20,6 +21,7 @@ public struct GameTitleView: View {
         CloudStack {
             Text(title)
                 .font(font)
+                .foregroundColor(.highlightedText)
             ForEach(types) {
                 GameTypeBadgeView(type: $0)
             }

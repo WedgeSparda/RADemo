@@ -2,6 +2,25 @@
 
 import PackageDescription
 
+enum ExternalDependency: String, CaseIterable {
+    case composibleArchitecture = "ComposableArchitecture"
+    
+    var packageData: (url: String, packageName: String, version: Version) {
+        switch self {
+        case .composibleArchitecture:
+            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.8.0")
+        }
+    }
+   
+    var asPackageDependency: Package.Dependency {
+        .package(url: packageData.url, from: packageData.version)
+    }
+    
+    var asTargetDependency: Target.Dependency {
+        .product(name: rawValue, package: packageData.packageName)
+    }
+}
+
 enum Module: String, CaseIterable {
     case achievement = "AchievementFeature"
     case app = "AppFeature"
@@ -26,7 +45,7 @@ enum Module: String, CaseIterable {
         case .game:
             [.shared]
         case .gamesForSystem:
-            [.shared]
+            [.shared, .resources]
         case .home:
             [.resources]
         case .main:
@@ -36,11 +55,11 @@ enum Module: String, CaseIterable {
         case .search:
             [.shared, .navigation]
         case .shared:
-            []
+            [.resources]
         case .splash:
             [.resources]
         case .systems:
-            [.navigation, .shared]
+            [.navigation, .shared, .resources]
         case .user:
             []
         case .resources:
@@ -51,35 +70,32 @@ enum Module: String, CaseIterable {
     var asDependency: Target.Dependency {
         .targetItem(name: self.rawValue, condition: nil)
     }
-}
-
-extension Product {
-    static func defineProduct(_ module: Module) -> Product {
-        .library(name: module.rawValue, targets: [module.rawValue])
-    }
-}
-
-extension Target {
-    private static let targetBaseDependencies: [Target.Dependency] = [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-    ]
     
-    static func defineTarget(_ module: Module) -> Target {
+    var asProduct: Product {
+        .library(name: rawValue, targets: [rawValue])
+    }
+    
+    var asTarget: Target {
         .target(
-            name: module.rawValue,
-            dependencies: targetBaseDependencies + (module.dependencies.map(\.asDependency))
+            name: rawValue,
+            dependencies: [
+                ExternalDependency.composibleArchitecture.asTargetDependency
+            ] + (dependencies.map(\.asDependency))
         )
     }
+    
+    var externalDependencies: [ExternalDependency] {
+        switch self {
+        default:
+            []
+        }
+    }
 }
-
-let dependenciesPackages: [Package.Dependency] = [
-    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.8.0")
-]
 
 let package = Package(
     name: "RADemo",
     platforms: [.iOS(.v17)],
-    products: Module.allCases.map { .defineProduct($0) },
-    dependencies: dependenciesPackages,
-    targets: Module.allCases.map { .defineTarget($0) }
+    products: Module.allCases.map(\.asProduct),
+    dependencies: ExternalDependency.allCases.map(\.asPackageDependency),
+    targets: Module.allCases.map(\.asTarget)
 )
