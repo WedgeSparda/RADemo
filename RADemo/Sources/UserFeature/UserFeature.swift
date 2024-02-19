@@ -30,7 +30,7 @@ public struct UserFeature {
 
 public struct UserView: View {
     
-    let store: StoreOf<UserFeature>
+    @Bindable var store: StoreOf<UserFeature>
     
     public init(store: StoreOf<UserFeature>) {
         self.store = store

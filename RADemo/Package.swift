@@ -39,11 +39,11 @@ enum Module: String, CaseIterable {
     var dependencies: [Module] {
         switch self {
         case .achievement:
-            []
+            [.resources]
         case .app:
             [.splash, .main]
         case .game:
-            [.shared]
+            [.shared, .resources]
         case .gamesForSystem:
             [.shared, .resources]
         case .home:

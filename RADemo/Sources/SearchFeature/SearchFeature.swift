@@ -68,7 +68,7 @@ public struct SearchFeature {
 
 public struct SearchView: View {
     
-    @State var store: StoreOf<SearchFeature>
+    @Bindable var store: StoreOf<SearchFeature>
     
     public init(store: StoreOf<SearchFeature>) {
         self.store = store
@@ -76,7 +76,7 @@ public struct SearchView: View {
     
     public var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 Text("Searching for: \(store.searchText)")
                     .lineLimit(1)
                     .frame(maxWidth: .infinity)
@@ -92,9 +92,7 @@ public struct SearchView: View {
             }
         }
         .searchable(text: $store.searchText, prompt: nil)
-        .navigationTitle("Search")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .navigationStyle("Search")
         .onAppear {
             store.send(.onAppear)
         }

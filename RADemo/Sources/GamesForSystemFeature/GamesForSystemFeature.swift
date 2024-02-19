@@ -56,7 +56,7 @@ public struct GamesForSystemFeature {
 
 public struct GamesForSystemView: View {
     
-    let store: StoreOf<GamesForSystemFeature>
+    @Bindable var store: StoreOf<GamesForSystemFeature>
     
     public init(store: StoreOf<GamesForSystemFeature>) {
         self.store = store

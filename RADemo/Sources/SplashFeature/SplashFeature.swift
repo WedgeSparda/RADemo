@@ -44,7 +44,7 @@ public struct SplashFeature {
 
 public struct SplashView: View {
     
-    let store: StoreOf<SplashFeature>
+    @Bindable var store: StoreOf<SplashFeature>
     
     public init(store: StoreOf<SplashFeature>) {
         self.store = store

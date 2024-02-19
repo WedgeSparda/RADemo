@@ -48,6 +48,9 @@ public struct MainFeature {
                 return .none
             case .games:
                 return .none
+            case .search(.onAppear):
+                print("SEARCH ON APPEAR")
+                return .none
             case .search:
                 return .none
             }
@@ -59,7 +62,7 @@ public struct MainFeature {
 
 public struct MainView: View {
     
-    let store: StoreOf<MainFeature>
+    @Bindable var store: StoreOf<MainFeature>
     
     @State var gamesNavigation: StoreOf<StackNavigation> = .init(initialState: .init()) {
         StackNavigation()

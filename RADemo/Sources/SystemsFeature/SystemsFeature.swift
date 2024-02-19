@@ -12,8 +12,8 @@ public struct SystemsFeature {
     
     @ObservableState
     public struct State: Equatable {
-        var systems: [System] = []
         public init() {}
+        var systems: [System] = []
     }
     
     public enum Action {
@@ -42,7 +42,7 @@ public struct SystemsFeature {
 
 public struct SystemsView: View {
     
-    let store: StoreOf<SystemsFeature>
+    @Bindable var store: StoreOf<SystemsFeature>
     
     public init(store: StoreOf<SystemsFeature>) {
         self.store = store
@@ -71,7 +71,9 @@ public struct SystemsView: View {
 // MARK: - Preview
 
 #Preview {
-    SystemsView(store: .init(initialState: .init(), reducer: {
-        SystemsFeature()
-    }))
+    NavigationStack {
+        SystemsView(store: .init(initialState: .init(), reducer: {
+            SystemsFeature()
+        }))
+    }
 }

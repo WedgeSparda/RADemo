@@ -1,42 +1,28 @@
 import SwiftUI
 import ComposableArchitecture
+import Resources
 
 @Reducer
 public struct AchievementFeature {
-    
     public init() {}
-    
-    @ObservableState
-    public struct State: Equatable {
-        
-        public init() {}
-    }
-    
-    public enum Action {
-        case onAppear
-    }
-    
-    public var body: some ReducerOf<Self> {
-        Reduce { state, action in
-            switch action {
-            case .onAppear:
-                return .none
-            }
-        }
-    }
 }
 
 // MARK: - View
 
 public struct AchievementView: View {
     
-    let store: StoreOf<AchievementFeature>
+    @Bindable var store: StoreOf<AchievementFeature>
     
     public init(store: StoreOf<AchievementFeature>) {
         self.store = store
     }
     
     public var body: some View {
-        Text("Achievement View")
+        ZStack {
+            Color.mainBackground
+            Text("ACHIEVEMENT")
+                .foregroundColor(.highlightedText)
+        }
+        .ignoresSafeArea()
     }
 }
