@@ -1,8 +1,9 @@
+# Generate code running this command in this same folder:
 # swift package --allow-writing-to-package-directory generate-code-for-resources
 xcassets:
   - inputs: Colors.xcassets
     outputs:
-      - templateName: swift5
+      - templatePath: Templates/colors-swift5.stencil
         output: GeneratedColors.swift
         params:
           bundle: Bundle.module
