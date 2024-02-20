@@ -4,11 +4,14 @@ import PackageDescription
 
 enum ExternalDependency: String, CaseIterable {
     case composibleArchitecture = "ComposableArchitecture"
+    case swiftGenPlugin = "SwiftGenPlugin"
     
     var packageData: (url: String, packageName: String, version: Version) {
         switch self {
         case .composibleArchitecture:
             ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.8.0")
+        case .swiftGenPlugin:
+            ("https://github.com/SwiftGen/SwiftGenPlugin", "SwiftGenPlugin", "6.6.0")
         }
     }
    
@@ -18,6 +21,10 @@ enum ExternalDependency: String, CaseIterable {
     
     var asTargetDependency: Target.Dependency {
         .product(name: rawValue, package: packageData.packageName)
+    }
+    
+    var asPlugin: Target.PluginUsage {
+        .plugin(name: rawValue, package: packageData.packageName)
     }
 }
 
@@ -36,7 +43,7 @@ enum Module: String, CaseIterable {
     case user = "UserFeature"
     case resources = "Resources"
     
-    var dependencies: [Module] {
+    var moduleDependencies: [Module] {
         switch self {
         case .achievement:
             [.resources]
@@ -67,6 +74,18 @@ enum Module: String, CaseIterable {
         }
     }
     
+    var pluginDependencies: [Target.PluginUsage] {
+        switch self {
+        case  .resources:
+            [
+                ExternalDependency.swiftGenPlugin.asPlugin
+            ]
+        default:
+            []
+        }
+    }
+
+    
     var asDependency: Target.Dependency {
         .targetItem(name: self.rawValue, condition: nil)
     }
@@ -80,15 +99,9 @@ enum Module: String, CaseIterable {
             name: rawValue,
             dependencies: [
                 ExternalDependency.composibleArchitecture.asTargetDependency
-            ] + (dependencies.map(\.asDependency))
+            ] + (moduleDependencies.map(\.asDependency)),
+            plugins: pluginDependencies
         )
-    }
-    
-    var externalDependencies: [ExternalDependency] {
-        switch self {
-        default:
-            []
-        }
     }
 }
 
