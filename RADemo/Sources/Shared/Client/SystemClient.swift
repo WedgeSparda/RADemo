@@ -9,7 +9,7 @@ public struct SystemClient {
 }
 
 extension SystemClient: DependencyKey {
-    public static var liveValue: SystemClient  = SystemClient(
+    public static var liveValue: SystemClient = SystemClient(
         getAll: { System.all },
         getBy: { System.with(id: $0) },
         getGamesForSystem: { SystemGame.gamesFor($0) }

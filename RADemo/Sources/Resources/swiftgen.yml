@@ -4,7 +4,7 @@ xcassets:
   - inputs: Colors.xcassets
     outputs:
       - templatePath: Templates/colors-swift5.stencil
-        output: GeneratedColors.swift
+        output: Colors.swift
         params:
           bundle: Bundle.module
           publicAccess: true

@@ -9,7 +9,7 @@ enum ExternalDependency: String, CaseIterable {
     var packageData: (url: String, packageName: String, version: Version) {
         switch self {
         case .composibleArchitecture:
-            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.8.0")
+            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.9.2")
         case .swiftGenPlugin:
             ("https://github.com/SwiftGen/SwiftGenPlugin", "SwiftGenPlugin", "6.6.0")
         }
@@ -36,6 +36,7 @@ enum Module: String, CaseIterable {
     case home = "HomeFeature"
     case main = "MainFeature"
     case navigation = "Navigation"
+    case raClient = "RAClient"
     case search = "SearchFeature"
     case shared = "Shared"
     case splash = "SplashFeature"
@@ -59,12 +60,14 @@ enum Module: String, CaseIterable {
             [.home, .navigation, .search, .systems, .resources]
         case .navigation:
             [.achievement, .game, .gamesForSystem, .user]
+        case .raClient:
+            []
         case .search:
             [.shared, .navigation]
         case .shared:
             [.resources]
         case .splash:
-            [.resources]
+            [.resources, .raClient]
         case .systems:
             [.navigation, .shared, .resources]
         case .user:
