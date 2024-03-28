@@ -7,7 +7,7 @@ import RAClient
 @Reducer
 public struct SystemsFeature {
     
-    @Dependency(\.systemAPIClient.getAll) var getAllSystems
+    @Dependency(\.systemAPIClient.getGameSystems) var getSystems
     
     public init() {}
     
@@ -30,7 +30,7 @@ public struct SystemsFeature {
                     return .none
                 }
                 return .run { send in
-                    let systems = try await getAllSystems()
+                    let systems = try await getSystems()
                     await send(.show(systems))
                 }
                 

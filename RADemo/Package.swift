@@ -53,7 +53,7 @@ enum Module: String, CaseIterable {
         case .game:
             [.shared, .resources]
         case .gamesForSystem:
-            [.shared, .resources]
+            [.shared, .resources, .raClient]
         case .home:
             [.resources]
         case .main:

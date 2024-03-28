@@ -10,7 +10,7 @@ final class APIClientV1 {
 
 extension APIClientV1 {
     func request<T: Codable>(_ apiRequest: APIRequestV1) async -> Result<T, HTTPError> {
-        let response = await request(GetConsoleIDs())
+        let response = await request(apiRequest)
         switch response.result {
         case let .success(data):
             guard let data else {
