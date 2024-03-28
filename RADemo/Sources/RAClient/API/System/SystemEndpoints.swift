@@ -21,6 +21,6 @@ enum SystemEndpoints: APIRequestV1 {
     }
     
     var cachePolicy: APICachePolicy {
-        .ttl(100)
+        .ttl(.oneHour)
     }
 }
