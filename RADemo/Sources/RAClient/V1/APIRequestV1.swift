@@ -1,10 +1,10 @@
 import Foundation
 
-protocol APIRequestV1 {
-    var path: String { get }
-    var queryParams: [URLQueryItem] { get }
-}
+protocol APIRequestV1: APIRequest {}
 
 extension APIRequestV1 {
-    var queryParams: [URLQueryItem] { [] }
+    var params: [URLQueryItem] { [] }
+    var method: HTTPMethod { .get }
+    var cachePolicy: APICachePolicy { .none }
+    var timeout: TimeInterval { 60 }
 }

@@ -26,7 +26,6 @@ public struct SplashFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                print("SPLASH ON APPEAR")
                 return .run { send in
                     try await clock.sleep(for: .seconds(2))
                     await send(.onAppReady, animation: .default)

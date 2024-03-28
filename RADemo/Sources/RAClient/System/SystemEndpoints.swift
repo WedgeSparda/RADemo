@@ -5,12 +5,12 @@ enum SystemEndpoints: APIRequestV1 {
     
     var path: String {
         switch self {
-        case .getSystems(let onlyGameSystems, let onlyActive):
+        case .getSystems:
             "/API/API_GetConsoleIDs.php"
         }
     }
     
-    var queryParams: [URLQueryItem] {
+    var params: [URLQueryItem] {
         switch self {
         case let .getSystems(onlyGameSystems, onlyActive):
             [
@@ -18,5 +18,9 @@ enum SystemEndpoints: APIRequestV1 {
                 URLQueryItem(name: "a", value: onlyActive ? "1" : "0")
             ]
         }
+    }
+    
+    var cachePolicy: APICachePolicy {
+        .ttl(100)
     }
 }

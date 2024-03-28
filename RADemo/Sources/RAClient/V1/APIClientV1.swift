@@ -1,34 +1,24 @@
 import Foundation
 
-final class APIClientV1 {
+final class APIClientV1: APIClient {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
         self.session = session
     }
-}
 
-extension APIClientV1 {
-    func request<T: Codable>(_ apiRequest: APIRequestV1) async -> Result<T, HTTPError> {
-        let response = await request(apiRequest)
-        switch response.result {
-        case let .success(data):
-            guard let data else {
-                return .failure(.unknown)
-            }
-            do {
-                let value = try JSONDecoder().decode(T.self, from: data)
-                return .success(value)
-            } catch {
-                return .failure(.parsingError(error))
-            }
-        case let .failure(error):
-            return .failure(error)
-        }
-    }
-    
-    private func request(_ apiRequest: APIRequestV1) async -> APIResponse {
+    func request(_ apiRequest: APIRequest) async -> APIResponse {
         let request = buildRequest(apiRequest)
+        
+        if 
+            let cachedURLResponse = session.configuration.urlCache?.cachedResponse(for: request),
+            !cachedURLResponse.hasExpired(apiRequest)
+        {
+            print("--> CACHE")
+            return buildResponse(data: cachedURLResponse.data, response: cachedURLResponse.response, error: nil, request: request)
+        }
+        print("--> REMOTE")
+        session.configuration.urlCache?.removeCachedResponse(for: request)
         do {
             let (data, response) = try await session.data(for: request)
             return buildResponse(data: data, response: response, error: nil, request: request)
@@ -36,15 +26,19 @@ extension APIClientV1 {
             return buildResponse(data: nil, response: nil, error: error, request: request)
         }
     }
-}
-
-private extension APIClientV1 {
-    func buildRequest(_ request: APIRequestV1) -> URLRequest {
+    
+    func buildRequest(_ request: APIRequest) -> URLRequest {
         var requestComponents: URLComponents = URLComponents(string: "https://retroachievements.org")!
         requestComponents.path = request.path
         requestComponents.queryItems = authorizationQueryParams
-        requestComponents.queryItems?.append(contentsOf: request.queryParams)
-        return URLRequest(url: requestComponents.url!)
+        requestComponents.queryItems?.append(contentsOf: request.params)
+        
+        let urlRequest = URLRequest(
+            url: requestComponents.url!,
+            cachePolicy: request.cachePolicy.requestCachePolicy
+        )
+        
+        return urlRequest
     }
     
     var authorizationQueryParams: [URLQueryItem] {
@@ -52,11 +46,32 @@ private extension APIClientV1 {
         let apiKey = URLQueryItem(name: "y", value: "782GKSwyD3rrmcglE5sZMZy9QqYZbbl8")
         return [userName, apiKey]
     }
-    
-    func buildResponse(data: Data?, response: URLResponse?, error: Error?, request: URLRequest) -> APIResponse {
-        guard error == nil else {
-            return .init(result: .failure(.unknown), request: request)
+}
+
+extension CachedURLResponse {
+    func hasExpired(_ request: APIRequest) -> Bool {
+        guard
+            let httpResponse = response as? HTTPURLResponse,
+            let cacheDate = httpResponse.value(forHTTPHeaderField: "Date")?.formatResponseHeaderDate()
+        else {
+            return true
         }
-        return APIResponse(result: .success(data), request: request)
+        switch request.cachePolicy {
+        case .none:
+            return true
+        case let .ttl(time):
+            return abs(cacheDate.timeIntervalSinceNow) > time
+        }
     }
 }
+
+extension String {
+    func formatResponseHeaderDate() -> Date?{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "EEE,d MMM yyyy HH:mm:ss zzz"
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        return dateFormatter.date(from: self)
+    }
+}
+

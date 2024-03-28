@@ -26,9 +26,6 @@ public struct SystemsFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                guard state.systems.isEmpty else {
-                    return .none
-                }
                 return .run { send in
                     let systems = try await getSystems()
                     await send(.show(systems))
