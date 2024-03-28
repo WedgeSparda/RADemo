@@ -2,11 +2,12 @@ import ComposableArchitecture
 import Navigation
 import Shared
 import SwiftUI
+import RAClient
 
 @Reducer
 public struct SystemsFeature {
     
-    @Dependency(\.systemClient) var systemClient
+    @Dependency(\.systemAPIClient.getAll) var getAllSystems
     
     public init() {}
     
@@ -25,8 +26,11 @@ public struct SystemsFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
+                guard state.systems.isEmpty else {
+                    return .none
+                }
                 return .run { send in
-                    let systems = try await systemClient.getAll()
+                    let systems = try await getAllSystems()
                     await send(.show(systems))
                 }
                 

@@ -1,6 +1,6 @@
 import Foundation
 
-final class RAClient {
+final class APIClientV1 {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
@@ -8,9 +8,27 @@ final class RAClient {
     }
 }
 
-extension RAClient {
-    func request() async -> APIResponse {
-        let request = buildRequest()
+extension APIClientV1 {
+    func request<T: Codable>(_ apiRequest: APIRequestV1) async -> Result<T, HTTPError> {
+        let response = await request(GetConsoleIDs())
+        switch response.result {
+        case let .success(data):
+            guard let data else {
+                return .failure(.unknown)
+            }
+            do {
+                let value = try JSONDecoder().decode(T.self, from: data)
+                return .success(value)
+            } catch {
+                return .failure(.parsingError(error))
+            }
+        case let .failure(error):
+            return .failure(error)
+        }
+    }
+    
+    private func request(_ apiRequest: APIRequestV1) async -> APIResponse {
+        let request = buildRequest(apiRequest)
         do {
             let (data, response) = try await session.data(for: request)
             return buildResponse(data: data, response: response, error: nil, request: request)
@@ -20,11 +38,12 @@ extension RAClient {
     }
 }
 
-private extension RAClient {
-    func buildRequest() -> URLRequest {
+private extension APIClientV1 {
+    func buildRequest(_ request: APIRequestV1) -> URLRequest {
         var requestComponents: URLComponents = URLComponents(string: "https://retroachievements.org")!
-        requestComponents.path = "/API/API_GetConsoleIDs.php"
+        requestComponents.path = request.path
         requestComponents.queryItems = authorizationQueryParams
+        requestComponents.queryItems?.append(contentsOf: request.queryParams)
         return URLRequest(url: requestComponents.url!)
     }
     

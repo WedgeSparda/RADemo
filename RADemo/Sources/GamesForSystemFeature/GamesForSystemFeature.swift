@@ -2,11 +2,12 @@ import ComposableArchitecture
 import Shared
 import SwiftUI
 import Resources
+import RAClient
 
 @Reducer
 public struct GamesForSystemFeature {
     
-    @Dependency(\.systemClient.getGamesForSystem) var getGamesForSystem
+    @Dependency(\.systemAPIClient.getGamesForSystem) var getGamesForSystem
     
     public init() {}
     

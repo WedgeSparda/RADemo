@@ -8,7 +8,7 @@ struct SystemsListRowView: View {
     var body: some View {
         ZStack {
             HStack {
-                AsyncImage(url: URL(string: system.iconURL)) {
+                AsyncImage(url: system.iconURL) {
                     $0.resizable()
                 } placeholder: {
                     Color.black

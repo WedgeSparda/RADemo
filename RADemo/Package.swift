@@ -61,7 +61,7 @@ enum Module: String, CaseIterable {
         case .navigation:
             [.achievement, .game, .gamesForSystem, .user]
         case .raClient:
-            []
+            [.shared]
         case .search:
             [.shared, .navigation]
         case .shared:
