@@ -33,12 +33,7 @@ final class APIClientV1: APIClient {
         requestComponents.queryItems = authorizationQueryParams
         requestComponents.queryItems?.append(contentsOf: request.params)
         
-        let urlRequest = URLRequest(
-            url: requestComponents.url!,
-            cachePolicy: request.cachePolicy.requestCachePolicy
-        )
-        
-        return urlRequest
+        return URLRequest(url: requestComponents.url!)
     }
     
     var authorizationQueryParams: [URLQueryItem] {
