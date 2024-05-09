@@ -9,7 +9,7 @@ enum ExternalDependency: String, CaseIterable {
     var packageData: (url: String, packageName: String, version: Version) {
         switch self {
         case .composibleArchitecture:
-            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.9.2")
+            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.10.3")
         case .swiftGenPlugin:
             ("https://github.com/SwiftGen/SwiftGenPlugin", "SwiftGenPlugin", "6.6.0")
         }
