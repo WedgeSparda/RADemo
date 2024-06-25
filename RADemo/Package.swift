@@ -4,14 +4,11 @@ import PackageDescription
 
 enum ExternalDependency: String, CaseIterable {
     case composibleArchitecture = "ComposableArchitecture"
-    case swiftGenPlugin = "SwiftGenPlugin"
     
     var packageData: (url: String, packageName: String, version: Version) {
         switch self {
         case .composibleArchitecture:
-            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.10.3")
-        case .swiftGenPlugin:
-            ("https://github.com/SwiftGen/SwiftGenPlugin", "SwiftGenPlugin", "6.6.0")
+            ("https://github.com/pointfreeco/swift-composable-architecture", "swift-composable-architecture", "1.11.2")
         }
     }
    
@@ -79,10 +76,8 @@ enum Module: String, CaseIterable {
     
     var pluginDependencies: [Target.PluginUsage] {
         switch self {
-        case  .resources:
-            [
-                ExternalDependency.swiftGenPlugin.asPlugin
-            ]
+        case .resources:
+            []
         default:
             []
         }
@@ -90,7 +85,7 @@ enum Module: String, CaseIterable {
 
     
     var asDependency: Target.Dependency {
-        .targetItem(name: self.rawValue, condition: nil)
+        .targetItem(name: rawValue, condition: nil)
     }
     
     var asProduct: Product {
