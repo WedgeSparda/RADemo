@@ -13,8 +13,11 @@ public struct SystemsFeature {
     
     @ObservableState
     public struct State: Equatable {
-        public init() {}
-        var systems: [System] = []
+        var systems: [System]
+        
+        public init(systems: [System] = []) {
+            self.systems = systems
+        }
     }
     
     public enum Action {

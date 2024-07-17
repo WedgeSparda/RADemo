@@ -6,46 +6,47 @@ import SwiftUI
 @Reducer
 public struct AppFeature {
     
+    @Reducer(state: .equatable)
+    public enum Destination {
+        case splash(SplashFeature)
+        case main(MainFeature)
+    }
+    
     public init() {}
     
     @ObservableState
-    public enum State: Equatable {
-        case splash(SplashFeature.State)
-        case main(MainFeature.State)
+    public struct State: Equatable {
+        var destination: Destination.State = .splash(.init())
+        public init() {}
     }
     
     public enum Action {
         case onAppear
-        
-        case splash(SplashFeature.Action)
-        case main(MainFeature.Action)
+        case destination(Destination.Action)
     }
     
     public var body: some ReducerOf<Self> {
+        Scope(state: \.destination.splash, action: \.destination.splash) {
+            SplashFeature()
+        }
+        
+        Scope(state: \.destination.main, action: \.destination.main) {
+            MainFeature()
+        }
+        
         Reduce { state, action in
             switch action {
             case .onAppear:
                 print("APP ON APPEAR")
                 return .none
 
-            case .splash(.onAppReady):
-                state = .main(
-                    .init()
-                )
+            case .destination(.splash(.onAppReady)):
+                state.destination = .main(.init())
                 return .none
                 
-            case .splash:
-                return .none
-                
-            case .main:
+            case .destination:
                 return .none
             }
-        }
-        .ifCaseLet(\.splash, action: \.splash) {
-            SplashFeature()
-        }
-        .ifCaseLet(\.main, action: \.main) {
-            MainFeature()
         }
     }
 }
@@ -61,15 +62,12 @@ public struct AppView: View {
     
     public var body: some View {
         VStack {
-            switch store.state {
-            case .splash:
-                if let splashStore = store.scope(state: \.splash, action: \.splash) {
-                    SplashView(store: splashStore)
-                }
-            case .main:
-                if let mainStore = store.scope(state: \.main, action: \.main) {
-                    MainView(store: mainStore)
-                }
+            let destinationStore = store.scope(state: \.destination, action: \.destination)
+            switch destinationStore.case {
+            case let .splash(store):
+                SplashView(store: store)
+            case let .main(store):
+                MainView(store: store)
             }
         }
         .onAppear {
@@ -83,7 +81,7 @@ public struct AppView: View {
 #Preview {
     AppView(
         store: .init(
-            initialState: .splash(.init()),
+            initialState: .init(),
             reducer: { AppFeature() }
         )
     )

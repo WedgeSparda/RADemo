@@ -9,7 +9,7 @@ struct RADemoApp: App {
         WindowGroup {
             AppView(
                 store: .init(
-                    initialState: .splash(.init()),
+                    initialState: .init(),
                     reducer: { AppFeature() }
                 )
             )
